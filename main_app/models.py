@@ -11,12 +11,16 @@ class Artist(models.Model):
   img_urls = models.CharField(max_length=150)
   highlights = models.TextField(max_length=200)
   fun_fact = models.TextField(max_length=150)
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
   website = models.CharField(max_length=50)
 
   def _str_(self):
     return f'{self.name}'
 
+
+# PHOTOS
+  # class Photo(models.Model):
+  #   artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
 
 # GALLERY
 class Gallery(models.Model):
@@ -26,7 +30,7 @@ class Gallery(models.Model):
   img_urls = models.CharField(max_length=150)
   highlights = models.TextField(max_length=200)
   fun_fact = models.TextField(max_length=150)
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
   website = models.CharField(max_length=50)
 
   def _str_(self):
