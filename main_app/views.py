@@ -1,9 +1,12 @@
 from django.shortcuts import render
 
-# Create your views here.
-from django.shortcuts import render
-
-# Add the following import
 
 
-# Define the home view
+def home(request):
+  return render(request, 'home.html')
+
+def artist_index(request):
+  return render(request, 'artists/artist_index.html')
+
+def artist_show(request, artist_id):
+  return render(request, 'artists/artist_show.html')
