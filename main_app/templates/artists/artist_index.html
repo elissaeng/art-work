@@ -6,7 +6,8 @@
 
 {% for artist in artists %}
 
-  <a href="{% url 'artist_show' artist.id%}">
+  <a href="{% url 'artist_show' artist.id %}">
+  
 
     <div class="card">
       <div class="card-content">
@@ -21,6 +22,10 @@
     </div>
 
   </a>
+
+  <div class="card-action">
+    <a href="{% url 'artist_edit' artist.id %}">Edit Artist</a>
+  </div>
 
 {% endfor %}
 
