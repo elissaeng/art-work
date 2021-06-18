@@ -12,7 +12,7 @@ class Artist(models.Model):
   highlights = models.TextField(max_length=200)
   fun_fact = models.TextField(max_length=150)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  website = models.CharField(max_length=50)
+  website = models.CharField(max_length=50, blank=True)
 
   def _str_(self):
     return f'{self.name}'

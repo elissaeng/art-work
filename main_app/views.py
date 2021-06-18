@@ -1,17 +1,21 @@
 from django.shortcuts import render, redirect
 from .models import Artist, Gallery
 from .forms import ArtistForm
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 
 # HOME
 def home(request):
   return render(request, 'home.html')
 
 
+
+
 # ARTIST INDEX
-def artist_index(request):
+def artists_index(request):
   artists = Artist.objects.all()
   context = { 'artists': artists }
-  return render(request, 'artists/artist_index.html', context)
+  return render(request, 'artists/artists_index.html', context)
 
 
 # ARTIST SHOW
@@ -67,3 +71,34 @@ def gallery_index(request):
 # GALLERY SHOW
 def gallery_show(request, gallery_id):
   return render(request, 'galleries/gallery_show.html')        
+
+
+
+# SIGN UP
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    
+    form = UserCreationForm(request.POST)
+    
+    if form.is_valid():
+      value=request.POST.get('isGallery')
+      user = form.save()
+      if value == 'yes':
+        gallery = Gallery() 
+        gallery.user = user
+        gallery.save()
+
+      else: 
+        artist = Artist()
+        artist.user = user
+        artist.save()
+        
+      login(request, user)
+      return redirect('artists_index')
+    else:
+      error_message = 'Invalid sign up - please try again'
+
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)       
