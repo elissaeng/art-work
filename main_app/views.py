@@ -3,6 +3,7 @@ from .models import Artist, Gallery
 from .forms import ArtistForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 # HOME
 def home(request):
@@ -26,6 +27,7 @@ def artist_show(request, artist_id):
 
 
 # CREATE ARTIST
+@login_required 
 def artist_create(request):
   if request.method == 'GET':
     form = ArtistForm()
@@ -43,6 +45,7 @@ def artist_create(request):
 
 
 # EDIT ARTIST
+@login_required 
 def artist_edit(request, artist_id):
   artist = Artist.objects.get(id=artist_id)
 
@@ -60,6 +63,7 @@ def artist_edit(request, artist_id):
 
 
 # DELETE ARTIST
+@login_required 
 def artist_delete(request, artist_id):
   artist = Artist.objects.get(id=artist_id)
   artist.delete()
