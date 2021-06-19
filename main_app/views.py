@@ -9,8 +9,6 @@ def home(request):
   return render(request, 'home.html')
 
 
-
-
 # ARTIST INDEX
 def artists_index(request):
   artists = Artist.objects.all()
@@ -60,6 +58,14 @@ def artist_edit(request, artist_id):
       artist = form.save()
       return redirect('artist_show', artist.id)
 
+
+# DELETE ARTIST
+def artist_delete(request, artist_id):
+  artist = Artist.objects.get(id=artist_id)
+  artist.delete()
+  return redirect('artists_index')
+
+
      
 
 # GALLERY INDEX
@@ -93,7 +99,7 @@ def signup(request):
         artist = Artist()
         artist.user = user
         artist.save()
-        
+
       login(request, user)
       return redirect('artists_index')
     else:
