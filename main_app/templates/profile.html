@@ -18,7 +18,7 @@
 
 
 <h1 class="text-end">{{ profile.name }}</h1>
-<div class="card">
+{% comment %} <div class="card">
   <div class="container">
     
     <p>Location: {{ profile.location }}</p>
@@ -28,14 +28,13 @@
     <p>Fun Fact About Me: {{ profile.fun_fact }}</p>
     <p>Image: {{ profile.img_urls }}</p>
   </div>
-</div>
+</div> {% endcomment %}
 
 <div class="row">
-
   <div class="col-6 bg-primary p-5">
-    <h5>Location</h5>
+    <h5>{{ profile.location }}</h5>
     <h5>Blurb</h5>
-    <h5>Website</h5>
+    <h5>Website: {{ profile.website }}</h5>
     <h6>Follow</h6>
     <h6>Message</h6>
   </div>
@@ -43,22 +42,41 @@
   <div class="col-6 bg-info p-5">
     <h2>Profile Image</h2>
   </div>
-
 </div>
+
 
 <div class="container">
   <div class="row">
-    <div class="col-12 bg-dark p-5">
-     
-    </div>
+    <div class="col-12 bg-dark p-4">
+     </div>
   </div>
 </div>
 
 
+<div class="row">
+  <div class="col bg-info p-5">
+    <h1>IMAGE</h1>
+  </div>
+  <div class="col bg-primary p-5">
+    <h1>BIO</h1>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia amet commodi id labore quia. Blanditiis odit, dolores inventore voluptatibus fugiat dignissimos corrupti voluptate, rerum recusandae accusantium reiciendis excepturi repellendus, ipsam magni quidem asperiores iure facere earum. Amet dignissimos quas dolorum saepe cupiditate aut doloribus, eaque unde tempora ut nam laudantium.</p>
+  </div>
+</div>
 
 
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Fun Fact</h5>
+    <p class="card-text">{{ profile.fun_fact }}</p>
+  </div>
+</div>
 
-
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Highlights</h5>
+    <p class="card-text">{{ profile.highlights }}</p>
+  </div>
+</div>
 
 
 
