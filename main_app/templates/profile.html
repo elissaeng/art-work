@@ -48,7 +48,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12 bg-dark p-4">
-     </div>
+    </div>
   </div>
 </div>
 
@@ -100,7 +100,7 @@
     <br><br>
     <input type="submit" class="btn" value="Upload Photo">
 </form>
-  {% for photo in profile.photo_set.all %}
+  {% for photo in profile.artist_photo_set.all %}
       <img class="responsive-img card-panel" src="{{photo.url}}">
     {% empty %}
       <div class="card-panel teal-text center-align">No Photos Uploaded</div>
