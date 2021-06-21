@@ -23,10 +23,10 @@
 
   </a>
 
-  <div class="card-action">
+  {% comment %} <div class="card-action">
     <a href="{% url 'artist_edit' artist.id %}">Edit Artist</a>
     <a href="{% url 'artist_delete' artist.id %}">Delete Artist</a>
-  </div>
+  </div> {% endcomment %}
 
 {% endfor %}
 

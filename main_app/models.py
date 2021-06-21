@@ -27,11 +27,11 @@ class Gallery(models.Model):
   name = models.CharField(max_length=50)
   location = models.CharField(max_length=50)
   bio = models.TextField(max_length=300)
-  img_urls = models.CharField(max_length=150)
+  img_urls = models.CharField(max_length=150, blank=True)
   highlights = models.TextField(max_length=200)
   fun_fact = models.TextField(max_length=150)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  website = models.CharField(max_length=50)
+  website = models.CharField(max_length=50, blank=True)
 
   def _str_(self):
     return f'{self.name}'

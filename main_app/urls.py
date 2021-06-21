@@ -14,4 +14,8 @@ urlpatterns = [
 
   path('gallery/', views.gallery_index, name='gallery_index'),
   path('gallery/<int:gallery_id>/', views.gallery_show, name='gallery_show'),
+  path('gallery/edit/<int:gallery_id>/', views.gallery_edit, name='gallery_edit'),
+  path('gallery/delete/<int:gallery_id>/', views.gallery_delete, name='gallery_delete'),
+
+  path('profile/', views.profile, name='profile')
 ]

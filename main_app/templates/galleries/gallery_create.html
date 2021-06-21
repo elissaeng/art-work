@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<h1>Create New Artist</h1>
+<h1>Create New Gallery</h1>
 
 <form method="POST">
   {% csrf_token %}
   {{ form.as_p }}
 
 
-  <button class="btn" type="submit">Add Artist</button>
+  <button class="btn" type="submit">Add Gallery</button>
 </form>
 
 {% endblock %}
