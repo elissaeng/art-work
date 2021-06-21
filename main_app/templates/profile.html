@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h1>Profile</h1>
+{% comment %} <h1>Profile</h1> {% endcomment %}
 
-<div class="card">
+{% comment %} <div class="card">
   <div class="card-content">
     <span class="card-title">Name: {{ profile.name }}</span>
     <p>Location: {{ profile.location }}</p>
@@ -14,25 +14,56 @@
     <p>Fun Fact About Me: {{ profile.fun_fact }}</p>
     <p>Image: {{ profile.img_urls }}</p>
   </div>
+</div> {% endcomment %}
+
+
+<h1 class="text-end">{{ profile.name }}</h1>
+<div class="card">
+  <div class="container">
+    
+    <p>Location: {{ profile.location }}</p>
+    <p>Bio: {{ profile.bio }}</p>
+    <p>Website: {{ profile.website }}</p>
+    <p>Highlights: {{ profile.highlights }}</p>
+    <p>Fun Fact About Me: {{ profile.fun_fact }}</p>
+    <p>Image: {{ profile.img_urls }}</p>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-6 bg-primary p-5">
+    <h5>Location</h5>
+    <h5>Blurb</h5>
+    <h5>Website</h5>
+    <h6>Follow</h6>
+    <h6>Message</h6>
+  </div>
+
+  <div class="col-6 bg-info p-5">
+    <h2>Profile Image</h2>
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 bg-dark p-5">
+     
+    </div>
+  </div>
 </div>
 
 
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-  </ul>
-  <div class="card-body">
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
-  </div>
-</div>
+
+
+
+
+
+
+
+
+
 
 
 {% if is_gallery %}

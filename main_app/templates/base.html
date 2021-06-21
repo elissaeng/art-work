@@ -16,13 +16,13 @@
   
 </head>
 <body>
-   <header class="navbar-fixed">
-      <nav>
+  <header class="navbar-fixed">
+      {% comment %} <nav>
       <div class="nav-wrapper">
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;art | work</a></li>
         </ul>
-        <ul class="right">
+        <ul class="right"> 
           {% if user.is_authenticated %}
             <li><a href="{% url 'artists_index' %}">View All Artists</a></li>
             <li><a href="{% url 'gallery_index' %}">View All Galleries</a></li>
@@ -31,44 +31,37 @@
           {% else %}
             <li><a href="{% url 'login' %}">Log In</a></li>
             <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          {% endif %}  
+          {% endif %}   
         </ul>
       </div> 
-    </nav> 
-    {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    </nav>   {% endcomment %}
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">art | work</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/artists">View All Artists</a>
+          <a class="nav-link" aria-current="page" href="{% url 'artists_index' %}">View All Artists</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+          <a class="nav-link" href="{% url 'gallery_index' %}">View All Galleries</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          <a class="nav-link" href="{% url 'profile' %}">Profile</a>
         </li>
       </ul>
-      
     </div>
   </div>
-</nav>       {% endcomment %}
+</nav>
+
+
+    
           
+   
             
  
 
