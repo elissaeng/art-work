@@ -17,66 +17,50 @@
 </head>
 <body>
   <header class="navbar-fixed">
-       <nav>
-      <div class="nav-wrapper">
-        <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;art | work</a></li>
-        </ul>
-        <ul class="right"> 
-          {% if user.is_authenticated %}
-            <li><a href="{% url 'artists_index' %}">View All Artists</a></li>
-            <li><a href="{% url 'gallery_index' %}">View All Galleries</a></li>
-            <li><a href="{% url 'profile' %}">Profile</a></li>
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
-          {% else %}
-            <li><a href="{% url 'login' %}">Log In</a></li>
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          {% endif %}   
-        </ul>
-      </div> 
-    </nav>  
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">art | work</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'artists_index' %}">View All Artists</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'gallery_index' %}">View All Galleries</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-
-    
-          
-   
-            
- 
-
-    
-          
-
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">art | work</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{% url 'artists_index' %}">View All Artists</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'gallery_index' %}">View All Galleries</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+              </li>
+            {% else %}  
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Log In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+              </li>
+            {% endif %}  
+          </ul>
+        </div>
+      </div>
+    </nav>
   </header>
+
   <main class="container">
     {% block content %}
     {% endblock %}
   </main>
+
   <footer class="page-footer">
     <div class="right">All Rights Reserved, &copy; 2021 art | work &nbsp;</div>
   </footer>
 
-  
 </body>
 </html>
+  
