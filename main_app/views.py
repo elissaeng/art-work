@@ -75,7 +75,7 @@ def artist_delete(request, artist_id):
   artist.delete()
   return redirect('artists_index')
 
-
+# ARTIST PHOTO
 @login_required
 def artist_photo(request, artist_id):
   photo_file = request.FILES.get('photo-file', None)

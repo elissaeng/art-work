@@ -18,7 +18,7 @@ class Artist(models.Model):
   def _str_(self):
     return f'{self.name}'
 
-# PHOTOS
+# ARTIST PHOTOS
 class Artist_photo(models.Model):
   artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
   url = models.CharField(max_length=200)
@@ -40,7 +40,7 @@ class Gallery(models.Model):
   def _str_(self):
     return f'{self.name}'
 
-# PHOTOS
+# GALLERY PHOTOS
 class Gallery_photo(models.Model):
   gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)    
   url = models.CharField(max_length=200)
