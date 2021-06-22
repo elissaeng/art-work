@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h1>Profile</h1>
+{% comment %} <h1>Profile</h1> {% endcomment %}
 
-<div class="card">
+{% comment %} <div class="card">
   <div class="card-content">
     <span class="card-title">Name: {{ profile.name }}</span>
     <p>Location: {{ profile.location }}</p>
@@ -14,25 +14,73 @@
     <p>Fun Fact About Me: {{ profile.fun_fact }}</p>
     <p>Image: {{ profile.img_urls }}</p>
   </div>
+</div> {% endcomment %}
+
+
+<h1 class="text-end">{{ profile.name }}</h1>
+{% comment %} <div class="card">
+  <div class="container">
+    
+    <p>Location: {{ profile.location }}</p>
+    <p>Bio: {{ profile.bio }}</p>
+    <p>Website: {{ profile.website }}</p>
+    <p>Highlights: {{ profile.highlights }}</p>
+    <p>Fun Fact About Me: {{ profile.fun_fact }}</p>
+    <p>Image: {{ profile.img_urls }}</p>
+  </div>
+</div> {% endcomment %}
+
+<div class="row">
+  <div class="col-6 bg-primary p-5">
+    <h5>{{ profile.location }}</h5>
+    <h5>Blurb</h5>
+    <h5>Website: {{ profile.website }}</h5>
+    <h6>Follow</h6>
+    <h6>Message</h6>
+  </div>
+
+  <div class="col-6 bg-info p-5">
+    <h2>Profile Image</h2>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 bg-dark p-4">
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col bg-info p-5">
+    <h1>IMAGE</h1>
+  </div>
+  <div class="col bg-primary p-5">
+    <h1>BIO</h1>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia amet commodi id labore quia. Blanditiis odit, dolores inventore voluptatibus fugiat dignissimos corrupti voluptate, rerum recusandae accusantium reiciendis excepturi repellendus, ipsam magni quidem asperiores iure facere earum. Amet dignissimos quas dolorum saepe cupiditate aut doloribus, eaque unde tempora ut nam laudantium.</p>
+  </div>
 </div>
 
 
 <div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-  </ul>
-  <div class="card-body">
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
+    <h5 class="card-title">Fun Fact</h5>
+    <p class="card-text">{{ profile.fun_fact }}</p>
   </div>
 </div>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Highlights</h5>
+    <p class="card-text">{{ profile.highlights }}</p>
+  </div>
+</div>
+
+
+
+
 
 
 {% if is_gallery %}
@@ -46,6 +94,17 @@
 
 
 <div class="card-action">
+<form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+    {% csrf_token %}
+    <input type="file" name="photo-file">
+    <br><br>
+    <input type="submit" class="btn" value="Upload Photo">
+</form>
+  {% for photo in profile.artist_photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}">
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
   <a href="{% url 'artist_edit' profile.id %}">Edit Profile</a>
   <a href="{% url 'artist_delete' profile.id %}">Delete Profile</a>
 </div> 

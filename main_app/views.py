@@ -1,10 +1,15 @@
 from django.core.files.base import ContentFile
 from django.shortcuts import render, redirect
-from .models import Artist, Gallery
+from .models import Artist, Gallery, Artist_photo
 from .forms import ArtistForm, GalleryForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+import uuid
+import boto3
+# Add these "constants" below the imports
+S3_BASE_URL = 'https://s3-us-west-2.amazonaws.com/'
+BUCKET = 'art-work'
 
 # HOME
 def home(request):
@@ -70,6 +75,25 @@ def artist_delete(request, artist_id):
   artist.delete()
   return redirect('artists_index')
 
+
+@login_required
+def artist_photo(request, artist_id):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build the full url string
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            # we can assign to cat_id or cat (if you have a cat object)
+            photo = Artist_photo(url=url, artist_id=artist_id)
+            photo.save()
+        except:
+            print('An error occurred uploading file to S3')
+  return redirect('profile')
 
 # ///////// GALLERIES  ///////////  
 

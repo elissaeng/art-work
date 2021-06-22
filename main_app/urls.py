@@ -8,7 +8,7 @@ urlpatterns = [
   path('artist/new/', views.artist_create, name='artist_create'),
   path('artist/edit/<int:artist_id>/', views.artist_edit, name='artist_edit'),
   path('artist/delete/<int:artist_id>/', views.artist_delete, name='artist_delete'),
-
+  path('artist/add_photo/<int:artist_id>', views.artist_photo, name="artist_photo"),
 
   path('accounts/signup', views.signup, name='signup'),
 
