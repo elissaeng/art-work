@@ -3,9 +3,11 @@ from django.db.models.fields import CharField
 from django.contrib.auth.models import User 
 # Create your models here.
 
+# GALLERY
 class Gallery(models.Model):
   name = models.CharField(max_length=50)
   location = models.CharField(max_length=50)
+  blurb = models.CharField(max_length=100, blank=True )
   bio = models.TextField(max_length=300)
   profile_img = models.CharField(max_length=200, blank=True)
   highlights = models.TextField(max_length=200)
@@ -14,10 +16,14 @@ class Gallery(models.Model):
   website = models.CharField(max_length=50, blank=True)
   # artists = models.ManyToManyField(Artist, blank=True )
 
+  def _str_(self):
+    return f'{self.name}'
+
 # ARTIST
 class Artist(models.Model):
   name = models.CharField(max_length=50)
   location = models.CharField(max_length=50)
+  blurb = models.CharField(max_length=100, blank=True)
   bio = models.TextField(max_length=300)
   profile_img = models.CharField(max_length=200, blank=True)
   highlights = models.TextField(max_length=200)
@@ -38,10 +44,7 @@ class Artist_photo(models.Model):
   def __str__(self):
     return f"Photo for artist_id: {self.artist_id} @{self.url}"
 
-# GALLERY
 
-  def _str_(self):
-    return f'{self.name}'
 
 # GALLERY PHOTOS
 class Gallery_photo(models.Model):

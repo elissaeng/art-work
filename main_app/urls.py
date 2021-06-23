@@ -16,6 +16,7 @@ urlpatterns = [
   path('gallery/<int:gallery_id>/', views.gallery_show, name='gallery_show'),
   path('gallery/edit/<int:gallery_id>/', views.gallery_edit, name='gallery_edit'),
   path('gallery/delete/<int:gallery_id>/', views.gallery_delete, name='gallery_delete'),
+   path('gallery/add_photo/<int:gallery_id>', views.gallery_photo, name="gallery_photo"),
 
   path('profile/', views.profile, name='profile'),
 

@@ -31,17 +31,21 @@
 </div> {% endcomment %}
 
 <div class="row">
-  <div class="col-6 bg-primary p-5">
+  <div class="col-6  p-5">
     <h5>{{ profile.location }}</h5>
-    <h5>Blurb</h5>
+    <h5>Blurb: {{ profile.blurb }}</h5>
     <h5>Website: {{ profile.website }}</h5>
     <h6>Follow</h6>
     <h6>Message</h6>
   </div>
 
-  <div class="col-6 bg-info p-5">
-    <h2>Profile Image</h2>
-  </div>
+  <div class="col-6  p-5">
+    {% comment %} <h2>Profile Image</h2> {% endcomment %}
+    
+  
+      <img class="profile-img card-panel" src="{{profile.profile_img}}">
+    
+      
 </div>
 
 
@@ -92,15 +96,26 @@
     <button type="submit" class="btn">Add</button>
   </form>
 </div> {% endcomment %}
-
+<div class="card-action">
+<form action="{% url 'gallery_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+    {% csrf_token %}
+    <input type="file" name="photo-file">
+    <br><br>
+    <input type="submit" class="btn" value="Upload Photo">
+</form>
+  {% for photo in profile.gallery_photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}">
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
 
 <div class="card-action">
   <a href="{% url 'gallery_edit' profile.id %}">Edit Profile</a>
   <a href="{% url 'gallery_delete' profile.id %}">Delete Profile</a>
 </div> 
+
 {% else  %}
 <h1>this is artist</h1>
-
 
 <div class="card-action">
 <form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
@@ -114,6 +129,7 @@
     {% empty %}
       <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
+
   <a href="{% url 'artist_edit' profile.id %}">Edit Profile</a>
   <a href="{% url 'artist_delete' profile.id %}">Delete Profile</a>
 </div> 

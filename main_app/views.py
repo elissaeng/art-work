@@ -1,6 +1,6 @@
 from django.core.files.base import ContentFile
 from django.shortcuts import render, redirect
-from .models import Artist, Gallery, Artist_photo
+from .models import Artist, Gallery, Artist_photo, Gallery_photo
 from .forms import ArtistForm, GalleryForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -99,6 +99,26 @@ def artist_photo(request, artist_id):
   return redirect('profile')
 
 
+# GALLERY PHOTO
+@login_required
+def gallery_photo(request, gallery_id):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build the full url string
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            # we can assign to cat_id or cat (if you have a cat object)
+            photo = Gallery_photo(url=url,gallery_id=gallery_id)
+            photo.save()
+        except:
+            print('An error occurred uploading file to S3')
+  return redirect('profile')
+
 
 
 # ///////// GALLERIES  ///////////  
@@ -178,7 +198,7 @@ def signup(request):
 def profile(request):
   artist_profile = Artist.objects.filter(user=request.user)
   gallery_profile = Gallery.objects.filter(user=request.user)
-  print (artist_profile[0].galleries)
+  # print (artist_profile[0].galleries)
   if (artist_profile.count()>0):
     return render(request, 'profile.html', {'profile': artist_profile[0], 'is_gallery': False})
   else: 
