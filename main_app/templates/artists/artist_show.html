@@ -4,7 +4,57 @@
 
 <h1>Artist Show Page</h1>
 
-<div class="card">
+<h1 class="text-end">{{ artist.name }}</h1>
+
+<div class="row">
+  <div class="col-6  p-5">
+    <h2>{{ artist.location }}</h2>
+    <h4>{{ artist.blurb }}</h4>
+    <h5>{{ artist.website }}</h5>
+    <h6>Follow</h6>
+    <h6>Message</h6>
+  </div>
+
+<div class="col-6  p-5">
+  <img class="profile-img card-panel" src="{{artist.profile_img}}">
+</div>
+  
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 bg-dark p-4">
+    </div>
+  </div>
+</div>  
+
+
+<div class="row">
+  <div class="col bg-info p-5">
+    <h1>IMAGE</h1>
+  </div>
+  <div class="col bg-primary p-5">
+    <h1>BIO</h1>
+      {{ artist.bio }}
+  </div>
+</div>
+
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Fun Fact</h5>
+    <p class="card-text">{{ artist.fun_fact }}</p>
+  </div>
+</div>
+
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Highlights</h5>
+    <p class="card-text">{{ artist.highlights }}</p>
+  </div>
+</div>
+
+{% comment %} <div class="card">
   <div class="card-content">
     <span class="card-title">Name: {{ artist.name }}</span>
     <p>Location: {{ artist.location }}</p>
@@ -15,7 +65,10 @@
     <p>Fun Fact About Me: {{ artist.fun_fact }}</p>
     <p>Image: {{ artist.profile_img }}</p>
   </div>
-</div>
+</div> {% endcomment %}
+
+
+
 
 {% comment %} <div class="card-action">
   <a href="{% url 'artist_edit' artist.id %}">Edit Artist</a>
