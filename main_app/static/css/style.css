@@ -11,3 +11,8 @@ body {
 .footer {
   flex-shrink: 0;
 }
+
+.responsive-img {
+  width: 100px;
+  height: auto;
+}

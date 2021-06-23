@@ -82,9 +82,18 @@
 
 
 
-
 {% if is_gallery %}
 <h1>this is gallery</h1>
+
+{% comment %} ADD GALLERY TO ARTIST {% endcomment %}
+{% comment %} <div class="card-action">
+  <form action="{% url 'assoc_gallery' artist.id gallery.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn">Add</button>
+  </form>
+</div> {% endcomment %}
+
+
 <div class="card-action">
   <a href="{% url 'gallery_edit' profile.id %}">Edit Profile</a>
   <a href="{% url 'gallery_delete' profile.id %}">Delete Profile</a>

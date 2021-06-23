@@ -17,5 +17,18 @@ urlpatterns = [
   path('gallery/edit/<int:gallery_id>/', views.gallery_edit, name='gallery_edit'),
   path('gallery/delete/<int:gallery_id>/', views.gallery_delete, name='gallery_delete'),
 
-  path('profile/', views.profile, name='profile')
+  path('profile/', views.profile, name='profile'),
+
+  # path('artists/<int:artist_id>/assoc_gallery/<int:gallery_id>/', views.assoc_gallery, name='assoc_gallery')
+  
+  path('galleries/<int:gallery_id>/assoc_gallery/', views.assoc_gallery, name='assoc_gallery')
+
+  # path('artist/galleries/', views.assoc_gallery, name='assoc_gallery'),
+
+  # path('galleries/<int:gallery_id>/artist/<int:artist_id>', views.assoc_gallery, name='assoc_gallery')
+
+
+  # path('gallery/<int:gallery_id>/<int:artist_id>', views.assoc_gallery, name='assoc_gallery')
+  # path('gallery/<int:artist_id>/galleries/<int:gallery_id>/', views.assoc_gallery, name='assoc_gallery'),
 ]
+

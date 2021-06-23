@@ -17,7 +17,45 @@
 </div>
 
 
+{% comment %} ADD GALLERY TO ARTIST {% endcomment %}
+ <div class="card-action">
+  <form action="{% url 'assoc_gallery' gallery.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn">Add Gallery</button>
+  </form>
+</div>      
 
 
+  {% comment %} {% if galleries.count > 0 %}
+
+    {% for gallery in galleries %}
+      <div class="card">
+    
+        <div class="card-content">
+          <span class="card-title">{{ gallery.name }}</span>
+        </div>
+
+      <div class="card-action">
+        <form action="{% url 'assoc_gallery' gallery.id artist.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add Gallery</button>
+        </form>
+      </div>
+
+      </div>
+    {% endfor %}å
+  {% endif %} {% endcomment %}
+
+
+
+{% comment %} <div class="card-action">
+  <form action="{% url 'assoc_gallery' artist.id gallery.id %}" method="post">
+      {% csrf_token %}
+    <button type="submit" class="btn">Add</button>
+  </form>
+</div> {% endcomment %}
+
+
+<button type="submit" class="btn">Add Gallery</button>
 
 {% endblock %}

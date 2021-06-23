@@ -16,6 +16,8 @@ def home(request):
   return render(request, 'home.html')
 
 
+# ///////////// ARTISTS //////////////////
+
 # ARTIST INDEX
 def artists_index(request):
   artists = Artist.objects.all()
@@ -75,6 +77,7 @@ def artist_delete(request, artist_id):
   artist.delete()
   return redirect('artists_index')
 
+
 # ARTIST PHOTO
 @login_required
 def artist_photo(request, artist_id):
@@ -94,6 +97,9 @@ def artist_photo(request, artist_id):
         except:
             print('An error occurred uploading file to S3')
   return redirect('profile')
+
+
+
 
 # ///////// GALLERIES  ///////////  
 
@@ -137,6 +143,7 @@ def gallery_delete(request, gallery_id):
   gallery.delete()
   return redirect('gallery_index')
 
+
 # SIGN UP
 def signup(request):
   error_message = ''
@@ -171,6 +178,7 @@ def signup(request):
 def profile(request):
   artist_profile = Artist.objects.filter(user=request.user)
   gallery_profile = Gallery.objects.filter(user=request.user)
+  print (artist_profile[0].galleries)
   if (artist_profile.count()>0):
     return render(request, 'profile.html', {'profile': artist_profile[0], 'is_gallery': False})
   else: 
@@ -183,3 +191,27 @@ def artist_show(request, artist_id):
   context= { 'artist': found_artist, 'ArtistForm': artist_form }
 
   return render(request, 'artists/artist_show.html', context)
+
+def assoc_gallery(request, gallery_id):
+  artist_profile = Artist.objects.get(user=request.user)
+  artist_profile.galleries.add(gallery_id)
+  print (artist_profile.galleries)
+  print (gallery_id)
+  # artist_profile[0].save()
+  return redirect('profile')
+
+# ADD A GALLERY TO AN ARTIST
+# def assoc_gallery(request, artist_id, gallery_id):
+#   found_artist = Artist.objects.get(id=artist_id)
+#   found_artist.galleries.add(gallery_id)
+#   return redirect('artist_profile', artist_id = artist_id)
+
+# def assoc_gallery(request, artist_id, gallery_id):
+#   found_artist = Artist.objects.get(id=artist_id)
+#   found_artist.gallery.add(gallery_id)
+#   return redirect('artist_profile', artist_id = artist_id)
+
+  
+# def assoc_gallery(request, gallery_id):
+#   Artist.objects.get(id=artist_id).galleries.add(gallery_id)
+#   return redirect('artist_profile', artist_id=artist_id)
