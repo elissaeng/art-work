@@ -4,18 +4,51 @@
 
 <h1> Gallery Show Page</h1>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">Name: {{ gallery.name }}</span>
-    <p>Location: {{ gallery.location }}</p>
-    <p>Bio: {{ gallery.bio }}</p>
-    <p>Website: {{ gallery.website }}</p>
-    <p>Highlights: {{ gallery.highlights }}</p>
-    <p>Fun Fact About Us: {{ gallery.fun_fact }}</p>
-    <p>Image: {{ gallery.img_urls }}</p>
+<h1 class="text-end">{{ gallery.name }}</h1>
+
+<div class="row">
+  <div class="col-6  p-5">
+    <h2>{{ gallery.location }}</h2>
+    <h4>{{ gallery.blurb }}</h4>
+    <h5>{{ gallery.website }}</h5>
+    <h6>Follow</h6>
+    <h6>Message</h6>
+  </div>
+
+<div class="col-6  p-5">
+  <img class="profile-img card-panel" src="{{gallery.profile_img}}">
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 bg-dark p-4">
+    </div>
+  </div>
+</div>  
+
+<div class="row">
+  <div class="col bg-info p-5">
+    <h1>IMAGE</h1>
+  </div>
+  <div class="col bg-primary p-5">
+    <h1>BIO</h1>
+      {{ gallery.bio }}
   </div>
 </div>
 
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Fun Fact</h5>
+    <p class="card-text">{{ gallery.fun_fact }}</p>
+  </div>
+</div>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Highlights</h5>
+    <p class="card-text">{{ gallery.highlights }}</p>
+  </div>
+</div>
 
 {% comment %} ADD GALLERY TO ARTIST {% endcomment %}
  <div class="card-action">
