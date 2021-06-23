@@ -19,7 +19,12 @@ body {
 
 
 .profile-img {
+  height: 400px;
   width: 400px;
-  height: auto;
+  object-fit: cover;
 }
 
+.artist-index-card {
+  margin-bottom: 30px;
+  overflow: hidden;
+}

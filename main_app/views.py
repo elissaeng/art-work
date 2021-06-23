@@ -13,8 +13,10 @@ BUCKET = 'art-work'
 
 # HOME
 def home(request):
-  return render(request, 'home.html')
-
+  artists = Artist.objects.all()
+  context = { 'artists': artists }
+  return render(request, 'home.html', context)
+ 
 
 # ///////////// ARTISTS //////////////////
 
