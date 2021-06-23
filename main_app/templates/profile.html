@@ -2,20 +2,6 @@
 
 {% block content %}
 
-{% comment %} <h1>Profile</h1> {% endcomment %}
-
-{% comment %} <div class="card">
-  <div class="card-content">
-    <span class="card-title">Name: {{ profile.name }}</span>
-    <p>Location: {{ profile.location }}</p>
-    <p>Bio: {{ profile.bio }}</p>
-    <p>Website: {{ profile.website }}</p>
-    <p>Highlights: {{ profile.highlights }}</p>
-    <p>Fun Fact About Me: {{ profile.fun_fact }}</p>
-    <p>Image: {{ profile.img_urls }}</p>
-  </div>
-</div> {% endcomment %}
-
 
 <h1 class="text-end">{{ profile.name }}</h1>
 {% comment %} <div class="card">
@@ -57,22 +43,24 @@
 </div>
 
 
-<div class="row">
-  <div class="col bg-info p-5">
-    <h1>IMAGE</h1>
-  </div>
-  <div class="col bg-primary p-5">
-    <h1>BIO</h1>
-     {{ profile.bio }}
-</div>
-
-
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">Fun Fact</h5>
     <p class="card-text">{{ profile.fun_fact }}</p>
   </div>
 </div>
+
+
+{% comment %} <div class="row">
+  <div class="col bg-info p-5">
+    <h1>IMAGE</h1>
+  </div> {% endcomment %}
+  <div class="col bg-primary p-5">
+    <h1>BIO</h1>
+     {{ profile.bio }}
+</div>
+
+
 
 <div class="card" style="width: 18rem;">
   <div class="card-body">

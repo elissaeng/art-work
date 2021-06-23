@@ -15,44 +15,45 @@
     <h6>Message</h6>
   </div>
 
-<div class="col-6  p-5">
-  <img class="profile-img card-panel" src="{{artist.profile_img}}">
-</div>
+  <div class="col-6  p-5">
+    <img class="profile-img card-panel" src="{{artist.profile_img}}">
+  </div>
   
+  <div class="container">
+    <div class="row">
+      <div class="col-12 bg-dark p-4">
+      </div>
+    </div>
+  </div>  
 
-<div class="container">
-  <div class="row">
-    <div class="col-12 bg-dark p-4">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Fun Fact</h5>
+      <p class="card-text">{{ artist.fun_fact }}</p>
     </div>
   </div>
-</div>  
 
+  {% comment %} <div class="row">
+    <div class="col bg-info p-5">
+      <h1>IMAGE</h1>
+    </div> {% endcomment %}
+    <div class="col bg-primary p-5">
+      <h1>BIO</h1>
+        {{ artist.bio }}
+    </div>
 
-<div class="row">
-  <div class="col bg-info p-5">
-    <h1>IMAGE</h1>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Highlights</h5>
+      <p class="card-text">{{ artist.highlights }}</p>
+    </div>
   </div>
-  <div class="col bg-primary p-5">
-    <h1>BIO</h1>
-      {{ artist.bio }}
-  </div>
+
 </div>
 
 
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Fun Fact</h5>
-    <p class="card-text">{{ artist.fun_fact }}</p>
-  </div>
-</div>
 
 
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Highlights</h5>
-    <p class="card-text">{{ artist.highlights }}</p>
-  </div>
-</div>
 
 {% comment %} <div class="card">
   <div class="card-content">

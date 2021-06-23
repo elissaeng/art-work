@@ -26,22 +26,23 @@
   </div>
 </div>  
 
-<div class="row">
-  <div class="col bg-info p-5">
-    <h1>IMAGE</h1>
-  </div>
-  <div class="col bg-primary p-5">
-    <h1>BIO</h1>
-      {{ gallery.bio }}
-  </div>
-</div>
-
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">Fun Fact</h5>
     <p class="card-text">{{ gallery.fun_fact }}</p>
   </div>
 </div>
+
+{% comment %} <div class="row"> {% endcomment %}
+  {% comment %} <div class="col bg-info p-5">
+    <h1>IMAGE</h1>
+  </div> {% endcomment %}
+  <div class="col bg-primary p-5">
+    <h1>BIO</h1>
+      {{ gallery.bio }}
+  </div>
+{% comment %} </div> {% endcomment %}
+
 
 <div class="card" style="width: 18rem;">
   <div class="card-body">
