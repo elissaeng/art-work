@@ -4,27 +4,30 @@
 
 <h1>Gallery Index</h1>
 
+<div class="row">
 {% for gallery in galleries %}
 
-
-<div class="card" style="width: 24rem;">
-  <img src="{{ gallery.profile_img }}" class="card-img-top" alt="gallery image">
-  <div class="card-body">
-    <h2 class="card-title">{{ gallery.name }}</h2>
-    <h5 class="card-text">{{ artist.blurb }}</h5>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">{{ gallery.location }}</li>
-    <li class="list-group-item">{{ gallery.website }}</li>
-    {% comment %} <li class="list-group-item">A third item</li> {% endcomment %}
-  </ul>
-  <div class="card-body">
-    <a href="{% url 'gallery_show' gallery.id %}" class="card-link">Profile</a>
-    {% comment %} <a href="#" class="card-link">Another link</a> {% endcomment %}
+<div class="col">
+  <div class="card gallery-index-card" style="width: 24rem;">
+    <img src="{{ gallery.profile_img }}" class="card-img-top" alt="gallery image">
+    <div class="card-body">
+      <h2 class="card-title">{{ gallery.name }}</h2>
+      <h5 class="card-text">{{ gallery.blurb }}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{ gallery.location }}</li>
+      <li class="list-group-item">{{ gallery.website }}</li>
+      {% comment %} <li class="list-group-item">A third item</li> {% endcomment %}
+    </ul>
+    <div class="card-body">
+      <a href="{% url 'gallery_show' gallery.id %}" class="card-link">Profile</a>
+      {% comment %} <a href="#" class="card-link">Another link</a> {% endcomment %}
+    </div>
   </div>
 </div>
 
-
 {% endfor %}
+
+</div>
 
 {% endblock %}
