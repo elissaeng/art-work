@@ -218,6 +218,7 @@ def profile(request):
     return render(request, 'profile.html', {'profile': gallery_profile[0], 'following': following, 'is_gallery': True})
 
 
+# FOLLOW
 def assoc_artist(request, artist_id):
   gallery_profile = Gallery.objects.get(user=request.user)
   gallery_profile.artists.add(artist_id)
@@ -231,6 +232,7 @@ def assoc_gallery(request, gallery_id):
   return redirect('profile')
 
 
+# REMOVE
 def remove_artist(request, artist_id):
   gallery_profile = Gallery.objects.get(user=request.user)
   gallery_profile.artists.remove(artist_id)
@@ -244,16 +246,24 @@ def remove_gallery(request, gallery_id):
   return redirect('profile')  
 
 
-
+# IMAGE SHOW
 @login_required
 def image_show(request, photo_id):
   found_image = Artist_photo.objects.get(id=photo_id)
-  
+
   context= { 'found_image': found_image }
 
   return render(request, 'image_show.html', context)
   
 
+# @login_required
+# def image_show(request, photo_id, artist_id):
+#   found_image = Artist_photo.objects.get(id=photo_id)
+#   found_artist = Artist_name.objects.get(id=artist_id)
+
+#   context= { 'found_image': found_image 'found_artist': found_artist}
+
+#   return render(request, 'image_show.html', context)
 
 
 # ADD A GALLERY TO AN ARTIST

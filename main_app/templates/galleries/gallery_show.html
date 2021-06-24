@@ -11,7 +11,6 @@
     <h2>{{ gallery.location }}</h2>
     <h4>{{ gallery.blurb }}</h4>
     <h5>{{ gallery.website }}</h5>
-    {% comment %} <h6>Follow</h6> {% endcomment %}
   {% if not is_gallery %}
   <div class="card-action">
     <form action="{% url 'assoc_gallery' gallery.id %}" method="POST">

@@ -33,7 +33,7 @@
 </div> {% endcomment %}
 
 
-<div class="card" style="width: 18rem;">
+<div class="card border-fun-fact" style="width: 18rem;">
   <div class="card-body fun-fact">
     <h5 class="card-title">Fun Fact</h5>
     <p class="card-text">{{ profile.fun_fact }}</p>
@@ -52,7 +52,7 @@
 
 
 
-<div class="card" style="width: 18rem;">
+<div class="card border-highlights" style="width: 18rem;">
   <div class="card-body highlights">
     <h5 class="card-title">Highlights</h5>
     <p class="card-text">{{ profile.highlights }}</p>
@@ -98,12 +98,7 @@
 
 {% else  %}
 <h1>this is artist</h1>
-<h2>galleries following</h2>
-<ul>
-  {% for gallery in following %}
-    <li><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a><a href="{% url 'remove_gallery' gallery.id %}">Unfollow</a></li>
-  {% endfor %}
-</ul>
+
 <div class="card-action">
 <form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
     {% csrf_token %}
@@ -117,6 +112,12 @@
       <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
 
+<h2>galleries following</h2>
+<ul>
+  {% for gallery in following %}
+    <li><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a><a href="{% url 'remove_gallery' gallery.id %}">Unfollow</a></li>
+  {% endfor %}
+</ul>
   <a href="{% url 'artist_edit' profile.id %}">Edit Profile</a>
   <a href="{% url 'artist_delete' profile.id %}">Delete Profile</a>
 </div> 
