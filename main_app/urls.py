@@ -19,14 +19,14 @@ urlpatterns = [
   path('gallery/add_photo/<int:gallery_id>', views.gallery_photo, name="gallery_photo"),
 
   path('profile/', views.profile, name='profile'),
-
-  # path('artists/<int:artist_id>/assoc_gallery/<int:gallery_id>/', views.assoc_gallery, name='assoc_gallery')
   
   path('artists/<int:artist_id>/assoc_artist/', views.assoc_artist, name="assoc_artist"),
   path('galleries/<int:gallery_id>/assoc_gallery/', views.assoc_gallery, name='assoc_gallery'),
 
   path('artists/<int:artist_id>/remove_artist/', views.remove_artist, name="remove_artist"),
-  path('galleries/<int:gallery_id>/remove_gallery/', views.remove_gallery, name='remove_gallery')
+  path('galleries/<int:gallery_id>/remove_gallery/', views.remove_gallery, name='remove_gallery'),
+
+  path('photos/<int:photo_id>/', views.image_show, name='image_show'),
 
   # path('artist/galleries/', views.assoc_gallery, name='assoc_gallery'),
 

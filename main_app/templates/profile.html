@@ -4,17 +4,7 @@
 
 
 <h1 class="text-end">{{ profile.name }}</h1>
-{% comment %} <div class="card">
-  <div class="container">
-    
-    <p>Location: {{ profile.location }}</p>
-    <p>Bio: {{ profile.bio }}</p>
-    <p>Website: {{ profile.website }}</p>
-    <p>Highlights: {{ profile.highlights }}</p>
-    <p>Fun Fact About Me: {{ profile.fun_fact }}</p>
-    <p>Image: {{ profile.img_urls }}</p>
-  </div>
-</div> {% endcomment %}
+
 
 <div class="row">
   <div class="col-6  p-5">
@@ -78,7 +68,7 @@
 <h2>artist following</h2>
 <ul>
   {% for artist in following %}
-    <li>{{ artist.name }} <a href="{% url 'remove_artist' artist.id %}">Unfollow</a></li>
+    <li><a href="{% url 'artist_show' artist.id %}">{{ artist.name }}</a> <a href="{% url 'remove_artist' artist.id %}">Unfollow</a></li>
   {% endfor %}
 </ul>
 {% comment %} ADD GALLERY TO ARTIST {% endcomment %}
@@ -111,7 +101,7 @@
 <h2>galleries following</h2>
 <ul>
   {% for gallery in following %}
-    <li>{{ gallery.name }}<a href="{% url 'remove_gallery' gallery.id %}">Unfollow</a></li>
+    <li><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a><a href="{% url 'remove_gallery' gallery.id %}">Unfollow</a></li>
   {% endfor %}
 </ul>
 <div class="card-action">
@@ -122,7 +112,7 @@
     <input type="submit" class="btn" value="Upload Photo">
 </form>
   {% for photo in profile.artist_photo_set.all %}
-      <img class="responsive-img card-panel" src="{{photo.url}}">
+      <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
     {% empty %}
       <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
