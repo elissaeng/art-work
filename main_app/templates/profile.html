@@ -25,16 +25,16 @@
 </div>
 
 
-<div class="container">
+{% comment %} <div class="container">
   <div class="row">
     <div class="col-12 bg-dark p-4">
     </div>
   </div>
-</div>
+</div> {% endcomment %}
 
 
 <div class="card" style="width: 18rem;">
-  <div class="card-body">
+  <div class="card-body fun-fact">
     <h5 class="card-title">Fun Fact</h5>
     <p class="card-text">{{ profile.fun_fact }}</p>
   </div>
@@ -45,7 +45,7 @@
   <div class="col bg-info p-5">
     <h1>IMAGE</h1>
   </div> {% endcomment %}
-  <div class="col bg-primary p-5">
+  <div class="col bio p-5">
     <h1>BIO</h1>
      {{ profile.bio }}
 </div>
@@ -53,7 +53,7 @@
 
 
 <div class="card" style="width: 18rem;">
-  <div class="card-body">
+  <div class="card-body highlights">
     <h5 class="card-title">Highlights</h5>
     <p class="card-text">{{ profile.highlights }}</p>
   </div>
