@@ -1,3 +1,9 @@
+a:-webkit-any-link {
+  text-decoration: none;
+  color: black;
+  
+}
+
 html, body {
   height: 100%;
 }
@@ -13,7 +19,7 @@ body {
 }
 
 .responsive-img {
-  width: 100px;
+  width: 200px;
   height: auto;
 }
 
@@ -32,6 +38,18 @@ body {
 .gallery-index-card {
   margin-bottom: 30px;
   overflow: hidden;
+}
+
+.galleries-following {
+  text-decoration: none !important;
+  color: black;
+  justify-content: space-between;
+  background: aquamarine;
+  list-style-type: none;
+}
+
+.unfollow {
+  margin-left: 10px;
 }
 
 .fun-fact {

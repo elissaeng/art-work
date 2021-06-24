@@ -60,6 +60,12 @@
 </div>
 
 
+ {% for photo in artist.artist_photo_set.all %}
+        <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
+      {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
+
 {% comment %} href{% url 'artist_photo' profile.id %} {% endcomment %}
 {% comment %} <form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
     {% csrf_token %}

@@ -71,13 +71,7 @@
     <li><a href="{% url 'artist_show' artist.id %}">{{ artist.name }}</a> <a href="{% url 'remove_artist' artist.id %}">Unfollow</a></li>
   {% endfor %}
 </ul>
-{% comment %} ADD GALLERY TO ARTIST {% endcomment %}
-{% comment %} <div class="card-action">
-  <form action="{% url 'assoc_gallery' artist.id gallery.id %}" method="POST">
-    {% csrf_token %}
-    <button type="submit" class="btn">Add</button>
-  </form>
-</div> {% endcomment %}
+
 <div class="card-action">
 <form action="{% url 'gallery_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
     {% csrf_token %}
@@ -99,28 +93,32 @@
 {% else  %}
 <h1>this is artist</h1>
 
-<div class="card-action">
-<form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    <input type="file" name="photo-file">
-    <br><br>
-    <input type="submit" class="btn" value="Upload Photo">
-</form>
-  {% for photo in profile.artist_photo_set.all %}
-      <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
-    {% empty %}
-      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-    {% endfor %}
+<div class="card-action bg-info">
+  <form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file">
+      <br><br>
+      <input type="submit" class="btn" value="Upload Photo">
+  </form>
+    {% for photo in profile.artist_photo_set.all %}
+        <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
+      {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
+</div> 
 
-<h2>galleries following</h2>
-<ul>
-  {% for gallery in following %}
-    <li><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a><a href="{% url 'remove_gallery' gallery.id %}">Unfollow</a></li>
-  {% endfor %}
-</ul>
+<div class="galleries-following">
+  <h2>galleries following</h2>
+  <ul>
+    {% for gallery in following %}
+    <li class="galleries-following"><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a><a class="unfollow" href="{% url 'remove_gallery' gallery.id %}">Unfollow</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
   <a href="{% url 'artist_edit' profile.id %}">Edit Profile</a>
   <a href="{% url 'artist_delete' profile.id %}">Delete Profile</a>
-</div> 
+
 {% endif %}
 
 
