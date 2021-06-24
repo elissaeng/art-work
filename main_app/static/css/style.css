@@ -44,9 +44,17 @@ body {
   background-color: #55dbf6;
 }
 
+.border-fun-fact {
+  border: none;
+}
+
 .highlights {
   /* background-color: #E8F4FF; */
   background-color: #cce6ff;
+}
+
+.border-highlights {
+  border: none;
 }
 
 .bio {
@@ -68,3 +76,13 @@ body {
 .bar {
   background-color: #20262d;
 }
+
+
+
+
+/* .grandchild {
+  float: left;
+}
+.clearboth {
+  clear: both;
+} */
