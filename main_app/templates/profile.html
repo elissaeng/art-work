@@ -75,7 +75,12 @@
 
 {% if is_gallery %}
 <h1>this is gallery</h1>
-
+<h2>artist following</h2>
+<ul>
+  {% for artist in following %}
+    <li>{{ artist.name }} <a href="{% url 'remove_artist' artist.id %}">Unfollow</a></li>
+  {% endfor %}
+</ul>
 {% comment %} ADD GALLERY TO ARTIST {% endcomment %}
 {% comment %} <div class="card-action">
   <form action="{% url 'assoc_gallery' artist.id gallery.id %}" method="POST">
@@ -103,7 +108,12 @@
 
 {% else  %}
 <h1>this is artist</h1>
-
+<h2>galleries following</h2>
+<ul>
+  {% for gallery in following %}
+    <li>{{ gallery.name }}<a href="{% url 'remove_gallery' gallery.id %}">Unfollow</a></li>
+  {% endfor %}
+</ul>
 <div class="card-action">
 <form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
     {% csrf_token %}

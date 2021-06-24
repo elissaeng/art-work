@@ -19,15 +19,15 @@
   <img class="profile-img card-panel" src="{{gallery.profile_img}}">
 </div>
 
-<div class="container">
+{% comment %} <div class="container">
   <div class="row">
-    <div class="col-12 bg-dark p-4">
+    <div class="col-12 bar p-3">
     </div>
   </div>
-</div>  
+</div>   {% endcomment %}
 
 <div class="card" style="width: 18rem;">
-  <div class="card-body">
+  <div class="card-body fun-fact">
     <h5 class="card-title">Fun Fact</h5>
     <p class="card-text">{{ gallery.fun_fact }}</p>
   </div>
@@ -36,8 +36,8 @@
 {% comment %} <div class="row"> {% endcomment %}
   {% comment %} <div class="col bg-info p-5">
     <h1>IMAGE</h1>
-  </div> {% endcomment %}
-  <div class="col bg-primary p-5">
+  </div>  {% endcomment %}
+  <div class="col bio p-5">
     <h1>BIO</h1>
       {{ gallery.bio }}
   </div>
@@ -45,20 +45,21 @@
 
 
 <div class="card" style="width: 18rem;">
-  <div class="card-body">
+  <div class="card-body highlights">
     <h5 class="card-title">Highlights</h5>
     <p class="card-text">{{ gallery.highlights }}</p>
   </div>
 </div>
 
 {% comment %} ADD GALLERY TO ARTIST {% endcomment %}
+{% if not is_gallery %}
  <div class="card-action">
   <form action="{% url 'assoc_gallery' gallery.id %}" method="POST">
     {% csrf_token %}
-    <button type="submit" class="btn">Add Gallery</button>
+    <button type="submit" class="btn">Follow Gallery</button>
   </form>
 </div>      
-
+{% endif %}
 
   {% comment %} {% if galleries.count > 0 %}
 
@@ -89,7 +90,5 @@
   </form>
 </div> {% endcomment %}
 
-
-<button type="submit" class="btn">Add Gallery</button>
 
 {% endblock %}

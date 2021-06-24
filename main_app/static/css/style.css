@@ -33,3 +33,38 @@ body {
   margin-bottom: 30px;
   overflow: hidden;
 }
+
+.fun-fact {
+  /* background-color: #cce6ff; */
+
+  /* default color */
+  /* background-color: #0DCAF0; */
+
+  /* background-color: #9eebfa; */
+  background-color: #55dbf6;
+}
+
+.highlights {
+  /* background-color: #E8F4FF; */
+  background-color: #cce6ff;
+}
+
+.bio {
+  /* background-color: #9ECEE6; */
+  /* background-color: #14CCF4; */
+  /* background-color: #86e4f9; */
+
+  /* lighter version of bio default */
+  /* background-color: #cde1fe; */
+  /* background-color: #b4d1fd; */
+  /* background-color: #82b3fc; */
+  /* background-color: #3585fd; */
+  /* background-color: #4e94fd; */
+  /* background-color: #ffffcc; */
+  background-color: #ffff99;
+}
+
+
+.bar {
+  background-color: #20262d;
+}

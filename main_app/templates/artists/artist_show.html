@@ -76,7 +76,14 @@
   <a href="{% url 'artist_delete' artist.id %}">Delete Artist</a>
 </div> {% endcomment %}
 
-
+{% if is_gallery %}
+ <div class="card-action">
+  <form action="{% url 'assoc_artist' artist.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn">Follow Artist</button>
+  </form>
+</div>      
+{% endif %}
 
 
 

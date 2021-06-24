@@ -14,7 +14,7 @@ class Gallery(models.Model):
   fun_fact = models.TextField(max_length=150)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   website = models.CharField(max_length=50, blank=True)
-  # artists = models.ManyToManyField(Artist, blank=True )
+  artists = models.ManyToManyField('Artist', blank=True )
 
   def _str_(self):
     return f'{self.name}'

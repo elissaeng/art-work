@@ -28,10 +28,15 @@ def artists_index(request):
 
 
 # ARTIST SHOW
+@login_required
 def artist_show(request, artist_id):
+  artist_profile = Artist.objects.filter(user=request.user)
+  is_gallery = True
+  if artist_profile.count() > 0: 
+    is_gallery = False
   found_artist = Artist.objects.get(id=artist_id)
   artist_form = ArtistForm()
-  context= { 'artist': found_artist, 'ArtistForm': artist_form }
+  context= { 'artist': found_artist, 'ArtistForm': artist_form, 'is_gallery': is_gallery }
 
   return render(request, 'artists/artist_show.html', context)
 
@@ -134,9 +139,13 @@ def gallery_index(request):
 
 # GALLERY SHOW
 def gallery_show(request, gallery_id):
+  artist_profile = Artist.objects.filter(user=request.user)
+  is_gallery = True
+  if artist_profile.count() > 0: 
+    is_gallery = False
   found_gallery = Gallery.objects.get(id=gallery_id)
   gallery_form = GalleryForm()
-  context= { 'gallery': found_gallery, 'GalleryForm': gallery_form }
+  context= { 'gallery': found_gallery, 'GalleryForm': gallery_form, 'is_gallery': is_gallery }
 
   return render(request, 'galleries/gallery_show.html', context)        
   
@@ -202,25 +211,44 @@ def profile(request):
   gallery_profile = Gallery.objects.filter(user=request.user)
   # print (artist_profile[0].galleries)
   if (artist_profile.count()>0):
-    return render(request, 'profile.html', {'profile': artist_profile[0], 'is_gallery': False})
+    following = artist_profile[0].galleries.all()
+    return render(request, 'profile.html', {'profile': artist_profile[0], 'following': following, 'is_gallery': False})
   else: 
-    return render(request, 'profile.html', {'profile': gallery_profile[0], 'is_gallery': True})
+    following = gallery_profile[0].artists.all()
+    return render(request, 'profile.html', {'profile': gallery_profile[0], 'following': following, 'is_gallery': True})
 
 
-def artist_show(request, artist_id):
-  found_artist = Artist.objects.get(id=artist_id)
-  artist_form = ArtistForm()
-  context= { 'artist': found_artist, 'ArtistForm': artist_form }
+# def artist_show(request, artist_id):
+#   found_artist = Artist.objects.get(id=artist_id)
+#   artist_form = ArtistForm()
+#   context= { 'artist': found_artist, 'ArtistForm': artist_form }
 
-  return render(request, 'artists/artist_show.html', context)
+#   return render(request, 'artists/artist_show.html', context)
+
+def assoc_artist(request, artist_id):
+  gallery_profile = Gallery.objects.get(user=request.user)
+  gallery_profile.artists.add(artist_id)
+  gallery_profile.save()
+  return redirect('profile')
 
 def assoc_gallery(request, gallery_id):
   artist_profile = Artist.objects.get(user=request.user)
   artist_profile.galleries.add(gallery_id)
-  print (artist_profile.galleries)
-  print (gallery_id)
-  # artist_profile[0].save()
+  artist_profile.save()
   return redirect('profile')
+
+
+def remove_artist(request, artist_id):
+  gallery_profile = Gallery.objects.get(user=request.user)
+  gallery_profile.artists.remove(artist_id)
+  gallery_profile.save()
+  return redirect('profile')
+
+def remove_gallery(request, gallery_id):
+  artist_profile = Artist.objects.get(user=request.user)
+  artist_profile.galleries.remove(gallery_id)
+  artist_profile.save()
+  return redirect('profile')  
 
 # ADD A GALLERY TO AN ARTIST
 # def assoc_gallery(request, artist_id, gallery_id):
