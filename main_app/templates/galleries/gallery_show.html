@@ -11,9 +11,19 @@
     <h2>{{ gallery.location }}</h2>
     <h4>{{ gallery.blurb }}</h4>
     <h5>{{ gallery.website }}</h5>
-    <h6>Follow</h6>
+    {% comment %} <h6>Follow</h6> {% endcomment %}
+  {% if not is_gallery %}
+  <div class="card-action">
+    <form action="{% url 'assoc_gallery' gallery.id %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn"><h6>Follow</h6></button>
+    </form>
+  {% endif %}
+  </div>      
     <h6>Message</h6>
-  </div>
+</div>
+
+
 
 <div class="col-6  p-5">
   <img class="profile-img card-panel" src="{{gallery.profile_img}}">
@@ -52,14 +62,14 @@
 </div>
 
 {% comment %} ADD GALLERY TO ARTIST {% endcomment %}
-{% if not is_gallery %}
+{% comment %} {% if not is_gallery %}
  <div class="card-action">
   <form action="{% url 'assoc_gallery' gallery.id %}" method="POST">
     {% csrf_token %}
     <button type="submit" class="btn">Follow Gallery</button>
   </form>
 </div>      
-{% endif %}
+{% endif %} {% endcomment %}
 
   {% comment %} {% if galleries.count > 0 %}
 
