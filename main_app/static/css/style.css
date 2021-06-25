@@ -7,13 +7,16 @@ a:-webkit-any-link {
 html, body {
   height: 100%;
 }
+
 body {
   display: flex;
   flex-direction: column;
 }
+
 .container {
   flex: 1 0 auto;
 }
+
 .footer {
   flex-shrink: 0;
   height: 100px;
@@ -25,8 +28,8 @@ body {
 .responsive-img {
   width: 300px;
   height: auto;
+  margin-top: 80px;
 }
-
 
 .profile-img {
   height: 400px;
@@ -43,6 +46,12 @@ body {
   margin-bottom: 30px;
   overflow: hidden;
 }
+
+
+/* .image-upload {
+  margin-top: 30px;
+  background: aquamarine;
+} */
 
 .galleries-following {
   text-decoration: none !important;
@@ -99,7 +108,16 @@ body {
 }
 
 
+#edit-form {
+  display: inline-block;
+  background: aquamarine;
+}
 
+
+#edit{
+  display: block;
+  
+}
 
 /* .grandchild {
   float: left;
