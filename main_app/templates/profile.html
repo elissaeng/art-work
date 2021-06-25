@@ -119,12 +119,13 @@
 
 <div class="card galleries-following" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">Galleries Following:</h5>
+    <h4 class="card-title">Galleries Following</h4>
 
     {% for gallery in following %}
-    <p class="card-text galleries-following"><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a></p>
+    <p class="card-text galleries-following"><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a>
 
-    <a class="btn btn unfollow" href="{% url 'remove_gallery' gallery.id %}">Unfollow</a>
+    <a class="btn btn-sm btn-outline-secondary unfollow" href="{% url 'remove_gallery' gallery.id %}">Unfollow</a>
+    </p>
     {% endfor %}
 
   </div>
