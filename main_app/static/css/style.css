@@ -58,10 +58,13 @@ body {
   color: black;
   justify-content: space-between;
   list-style-type: none;
+  /* border-style: solid; */
 }
 
 .unfollow {
   margin-left: 10px;
+  background: lightgray;
+  font-size: x-small;
 }
 
 .fun-fact {
@@ -116,7 +119,11 @@ body {
 
 #edit{
   display: block;
-  
+}
+
+
+.edit-delete {
+  margin-top: 20px;
 }
 
 /* .grandchild {

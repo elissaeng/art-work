@@ -84,7 +84,7 @@
 </ul>
 
 
-<div class="card-action">
+<div class="card-action edit-delete">
   <a href="{% url 'gallery_edit' profile.id %}">Edit Profile</a>
   <a href="{% url 'gallery_delete' profile.id %}">Delete Profile</a>
 </div> 
@@ -108,17 +108,39 @@
   </form>
 </div> 
 
-<div class="galleries-following">
+{% comment %} <div class="galleries-following">
   <h2>galleries following</h2>
   <ul>
     {% for gallery in following %}
     <li class="galleries-following"><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a><a class="unfollow" href="{% url 'remove_gallery' gallery.id %}">Unfollow</a></li>
     {% endfor %}
   </ul>
+</div> {% endcomment %}
+
+<div class="card galleries-following" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Galleries Following:</h5>
+
+    {% for gallery in following %}
+    <p class="card-text galleries-following"><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a></p>
+
+    <a class="btn btn unfollow" href="{% url 'remove_gallery' gallery.id %}">Unfollow</a>
+    {% endfor %}
+
+  </div>
 </div>
 
+{% comment %} <div class="card-action edit-delete">
   <a href="{% url 'artist_edit' profile.id %}">Edit Profile</a>
   <a href="{% url 'artist_delete' profile.id %}">Delete Profile</a>
+</div> {% endcomment %}
+
+<div class="card-action edit-delete">
+  <a href="{% url 'artist_edit' profile.id %}">Edit Profile</a>
+</div>  
+<div class="card-action edit-delete">  
+  <a href="{% url 'artist_delete' profile.id %}">Delete Profile</a>
+</div>
 
 {% endif %}
 
