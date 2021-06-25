@@ -16,6 +16,10 @@ body {
 }
 .footer {
   flex-shrink: 0;
+  height: 100px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .responsive-img {

@@ -249,25 +249,55 @@ def remove_gallery(request, gallery_id):
 # IMAGE SHOW
 @login_required
 def image_show(request, photo_id):
-  found_image = Artist_photo.objects.get(id=photo_id)
-  context= { 'found_image': found_image }
+  match = False
+  array = Artist_photo.objects.filter(id=photo_id)
+  found_image = None
+  if array.count() > 0:
+    found_image = Artist_photo.objects.get(id=photo_id)
+  else:
+    found_image = Gallery_photo.objects.get(id=photo_id)
+  artist_profile = Artist.objects.filter(user=request.user)
+  gallery_profile = Gallery.objects.filter(user=request.user)
+  if (artist_profile.count()>0):
+    photos = (artist_profile[0].artist_photo_set.all())
+    for photo in photos: 
+      if photo.id == photo_id:
+        match = True
+      
+  else:
+    photos = (gallery_profile[0].gallery_photo_set.all())
+    for photo in photos: 
+      if photo.id == photo_id:
+        match = True
+  context= { 'found_image': found_image, 'match': match }
 
   return render(request, 'image_show.html', context)
   
 # IMAGE DELETE
 @login_required
 def image_delete(request, photo_id):
-  image = Image.objects.get(id=photo_id)  
-  image.delete()
+  array = Artist_photo.objects.filter(id=photo_id)  
+  found_image = None
+  if array.count() > 0:
+    found_image = Artist_photo.objects.get(id=photo_id)
+  else:
+    found_image = Gallery_photo.objects.get(id=photo_id)  
+  found_image.delete()
 
-  return render(request, 'profile')
+  return redirect('profile')
 
 
-@login_required 
-def gallery_delete(request, gallery_id):
-  gallery = Gallery.objects.get(id=gallery_id)
-  gallery.delete()
-  return redirect('gallery_index')
+  
+
+  # print (artist_profile[0].galleries)
+  
+  #   following = artist_profile[0].galleries.all()
+  #   return render(request, 'profile.html', {'profile': artist_profile[0], 'following': following, 'is_gallery': False})
+  # else: 
+  #   following = gallery_profile[0].artists.all()
+  #   return render(request, 'profile.html', {'profile': gallery_profile[0], 'following': following, 'is_gallery': True})
+
+
 
 # @login_required
 # def image_show(request, photo_id, artist_id):

@@ -11,8 +11,6 @@
     <h2>{{ profile.location }}</h2>
     <h4>{{ profile.blurb }}</h4>
     <h5>{{ profile.website }}</h5>
-    <h6>Follow</h6>
-    <h6>Message</h6>
   </div>
 
   <div class="col-6  p-5">
@@ -68,7 +66,7 @@
 
 <div class="card-action">
   {% for photo in profile.gallery_photo_set.all %}
-      <img class="responsive-img card-panel" src="{{photo.url}}">
+      <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
     {% empty %}
       <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}

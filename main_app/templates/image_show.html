@@ -8,4 +8,11 @@
 
 <img src="{{ found_image.url }}" alt="">
 
+
+
+ {% if match %}
+ <a href="{% url 'image_delete' found_image.id %}"><button>delete</button></a>
+  
+  {% endif %}
+
 {% endblock %}
