@@ -76,13 +76,21 @@
     <br><br>
     <input type="submit" class="btn" value="Upload Photo">
 </form>
-<h2>artists following</h2>
-<ul>
-  {% for artist in following %}
-    <li><a href="{% url 'artist_show' artist.id %}">{{ artist.name }}</a> <a href="{% url 'remove_artist' artist.id %}">Unfollow</a></li>
-  {% endfor %}
-</ul>
 
+
+
+<div class="card artists-following" style="width: 18rem;">
+  <div class="card-body">
+    <h4 class="card-title">Artists Following</h4>
+
+    {% for artist in following %}
+    <p class="card-text artists-following"><a href="{% url 'artist_show' artist.id %}">{{ artist.name }}</a>
+
+    <a class="btn btn-sm btn-outline-secondary unfollow" href="{% url 'remove_artist' artist.id %}">Unfollow</a>
+    </p>
+    {% endfor %}
+  </div>
+</div>  
 
 <div class="card-action edit-delete">
   <a href="{% url 'gallery_edit' profile.id %}">Edit Profile</a>
@@ -108,14 +116,6 @@
   </form>
 </div> 
 
-{% comment %} <div class="galleries-following">
-  <h2>galleries following</h2>
-  <ul>
-    {% for gallery in following %}
-    <li class="galleries-following"><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a><a class="unfollow" href="{% url 'remove_gallery' gallery.id %}">Unfollow</a></li>
-    {% endfor %}
-  </ul>
-</div> {% endcomment %}
 
 <div class="card galleries-following" style="width: 18rem;">
   <div class="card-body">
