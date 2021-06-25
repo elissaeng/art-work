@@ -65,25 +65,26 @@
 
 {% if is_gallery %}
 <h1>this is gallery</h1>
-<h2>artist following</h2>
-<ul>
-  {% for artist in following %}
-    <li><a href="{% url 'artist_show' artist.id %}">{{ artist.name }}</a> <a href="{% url 'remove_artist' artist.id %}">Unfollow</a></li>
-  {% endfor %}
-</ul>
 
 <div class="card-action">
+  {% for photo in profile.gallery_photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}">
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
 <form action="{% url 'gallery_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
     {% csrf_token %}
     <input type="file" name="photo-file">
     <br><br>
     <input type="submit" class="btn" value="Upload Photo">
 </form>
-  {% for photo in profile.gallery_photo_set.all %}
-      <img class="responsive-img card-panel" src="{{photo.url}}">
-    {% empty %}
-      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-    {% endfor %}
+<h2>artists following</h2>
+<ul>
+  {% for artist in following %}
+    <li><a href="{% url 'artist_show' artist.id %}">{{ artist.name }}</a> <a href="{% url 'remove_artist' artist.id %}">Unfollow</a></li>
+  {% endfor %}
+</ul>
+
 
 <div class="card-action">
   <a href="{% url 'gallery_edit' profile.id %}">Edit Profile</a>
@@ -93,18 +94,18 @@
 {% else  %}
 <h1>this is artist</h1>
 
-<div class="card-action bg-info">
+<div class="card-action">
+    {% for photo in profile.artist_photo_set.all %}
+        <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
+      {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
   <form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
       {% csrf_token %}
       <input type="file" name="photo-file">
       <br><br>
       <input type="submit" class="btn" value="Upload Photo">
   </form>
-    {% for photo in profile.artist_photo_set.all %}
-        <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
-      {% empty %}
-        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-      {% endfor %}
 </div> 
 
 <div class="galleries-following">

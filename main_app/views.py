@@ -250,11 +250,24 @@ def remove_gallery(request, gallery_id):
 @login_required
 def image_show(request, photo_id):
   found_image = Artist_photo.objects.get(id=photo_id)
-
   context= { 'found_image': found_image }
 
   return render(request, 'image_show.html', context)
   
+# IMAGE DELETE
+@login_required
+def image_delete(request, photo_id):
+  image = Image.objects.get(id=photo_id)  
+  image.delete()
+
+  return render(request, 'profile')
+
+
+@login_required 
+def gallery_delete(request, gallery_id):
+  gallery = Gallery.objects.get(id=gallery_id)
+  gallery.delete()
+  return redirect('gallery_index')
 
 # @login_required
 # def image_show(request, photo_id, artist_id):

@@ -19,7 +19,7 @@ body {
 }
 
 .responsive-img {
-  width: 200px;
+  width: 300px;
   height: auto;
 }
 
@@ -44,7 +44,6 @@ body {
   text-decoration: none !important;
   color: black;
   justify-content: space-between;
-  background: aquamarine;
   list-style-type: none;
 }
 
