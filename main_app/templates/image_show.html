@@ -6,12 +6,12 @@
 
 {% comment %} <h1>{{ profile.name }}</h1> {% endcomment %}
 
-<img src="{{ found_image.url }}" alt="">
+<img class="image-show" src="{{ found_image.url }}" alt="">
 
 
 
  {% if match %}
- <a href="{% url 'image_delete' found_image.id %}"><button>delete</button></a>
+ <a href="{% url 'image_delete' found_image.id %}"><button id="image-delete">delete</button></a>
   
   {% endif %}
 

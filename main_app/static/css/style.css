@@ -113,7 +113,10 @@ body {
 
 #edit-form {
   display: inline-block;
-  background: aquamarine;
+  /* background: aquamarine; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -124,6 +127,16 @@ body {
 
 .edit-delete {
   margin-top: 20px;
+}
+
+
+#image-delete {
+  display: flex;
+
+}
+
+.image-show {
+  display: block;
 }
 
 /* .grandchild {
