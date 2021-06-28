@@ -2,13 +2,14 @@
 
 {% block content %}
 
-<h1>Artist Show Page</h1>
+{% comment %} <h1>Artist Show Page</h1> {% endcomment %}
 
-<h1 class="text-end">{{ artist.name }}</h1>
+{% comment %} <h1 class="text-end">{{ artist.name }}</h1> {% endcomment %}
 
 <div class="row">
   <div class="col-6  p-5">
-    <h2>{{ artist.location }}</h2>
+    <h1>{{ artist.name }}</h1>
+    <h3>{{ artist.location }}</h3>
     <h4>{{ artist.blurb }}</h4>
     <h5>{{ artist.website }}</h5>
     {% if is_gallery %}

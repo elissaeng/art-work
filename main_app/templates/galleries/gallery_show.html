@@ -2,12 +2,13 @@
 
 {% block content %}
 
-<h1> Gallery Show Page</h1>
+{% comment %} <h1> Gallery Show Page</h1> {% endcomment %}
 
-<h1 class="text-end">{{ gallery.name }}</h1>
+{% comment %} <h1 class="text-end">{{ gallery.name }}</h1> {% endcomment %}
 
 <div class="row">
   <div class="col-6  p-5">
+    <h1>{{ gallery.name }}</h1>
     <h2>{{ gallery.location }}</h2>
     <h4>{{ gallery.blurb }}</h4>
     <h5>{{ gallery.website }}</h5>

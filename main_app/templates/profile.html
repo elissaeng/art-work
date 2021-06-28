@@ -3,11 +3,12 @@
 {% block content %}
 
 
-<h1 class="text-end">{{ profile.name }}</h1>
+{% comment %} <h1 class="text-end">{{ profile.name }}</h1> {% endcomment %}
 
 
 <div class="row">
   <div class="col-6  p-5">
+    <h1>{{ profile.name }}</h1>
     <h2>{{ profile.location }}</h2>
     <h4>{{ profile.blurb }}</h4>
     <h5>{{ profile.website }}</h5>

@@ -4,10 +4,11 @@
 
 <h1>Edit Gallery</h1>
 
-<form method="POST">
+<form method="POST" class="edit-form">
   {% csrf_token %}
+  <div class="edit">
   {{ form.as_p }}
-
+  </div>
 
   <button class="btn" type="submit">Edit Gallery</button>
 </form>
