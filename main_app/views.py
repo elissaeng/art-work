@@ -185,11 +185,12 @@ def signup(request):
     if form.is_valid():
       value=request.POST.get('isGallery')
       user = form.save()
-      if value == 'yes':
+      print (value)
+      if value:
         gallery = Gallery() 
         gallery.user = user
         gallery.save()
-
+        
       else: 
         artist = Artist()
         artist.user = user

@@ -110,7 +110,6 @@ body {
   background-color: #20262d;
 }
 
-
 #edit-form {
   display: inline-block;
   /* background: aquamarine; */
@@ -119,7 +118,6 @@ body {
   align-items: center;
   
 }
-
 
 #edit{
   display: block;
@@ -140,6 +138,17 @@ body {
 .image-show {
   display: block;
 }
+
+
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked{
+  pointer-events: all;
+  opacity: 1;
+  position: relative;
+}
+
+
+
+
 
 /* .grandchild {
   float: left;
