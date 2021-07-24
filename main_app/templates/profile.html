@@ -2,85 +2,60 @@
 
 {% block content %}
 
-
 {% comment %} <h1 class="text-end">{{ profile.name }}</h1> {% endcomment %}
 
-
 <div class="row">
-  <div class="col-6  p-5">
+  <section class="col-6  p-5">
     <h1>{{ profile.name }}</h1>
     <h2>{{ profile.location }}</h2>
     <h4>{{ profile.blurb }}</h4>
     <h5>{{ profile.website }}</h5>
-  </div>
+  </section>
 
-  <div class="col-6  p-5">
-    {% comment %} <h2>Profile Image</h2> {% endcomment %}
-    
-  
-      <img class="profile-img card-panel" src="{{profile.profile_img}}">
-    
-      
-</div>
+<figure class="col-6  p-5">
+  {% comment %} <h2>Profile Image</h2> {% endcomment %}
+  <img class="profile-img card-panel" src="{{profile.profile_img}}">
+</figure>
 
-
-{% comment %} <div class="container">
-  <div class="row">
-    <div class="col-12 bg-dark p-4">
-    </div>
-  </div>
-</div> {% endcomment %}
-
-
-<div class="card border-fun-fact" style="width: 18rem;">
+<article class="card border-fun-fact" style="width: 18rem;">
   <div class="card-body fun-fact">
     <h5 class="card-title">Fun Fact</h5>
     <p class="card-text">{{ profile.fun_fact }}</p>
   </div>
-</div>
+</article>
 
+<article class="col bio p-5">
+  <h1>BIO</h1>
+    {{ profile.bio }}
+</article>
 
-{% comment %} <div class="row">
-  <div class="col bg-info p-5">
-    <h1>IMAGE</h1>
-  </div> {% endcomment %}
-  <div class="col bio p-5">
-    <h1>BIO</h1>
-     {{ profile.bio }}
-</div>
-
-
-
-<div class="card border-highlights" style="width: 18rem;">
+<article class="card border-highlights" style="width: 18rem;">
   <div class="card-body highlights">
     <h5 class="card-title">Highlights</h5>
     <p class="card-text">{{ profile.highlights }}</p>
   </div>
-</div>
-
-
-
+</article>
 
 
 {% if is_gallery %}
-<h1>this is gallery</h1>
+{% comment %} <h1>this is gallery</h1> {% endcomment %}
 
-<div class="card-action">
+<figure class="card-action">
   {% for photo in profile.gallery_photo_set.all %}
       <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
     {% empty %}
       <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
-<form action="{% url 'gallery_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+  <form action="{% url 'gallery_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
     {% csrf_token %}
     <input type="file" name="photo-file">
     <br><br>
     <input type="submit" class="btn" value="Upload Photo">
-</form>
+  </form>
+</figure>
 
 
-
-<div class="card artists-following" style="width: 18rem;">
+<section class="card artists-following" style="width: 18rem;">
   <div class="card-body">
     <h4 class="card-title">Artists Following</h4>
 
@@ -91,21 +66,22 @@
     </p>
     {% endfor %}
   </div>
-</div>  
+</section>  
+
 
 <div class="card-action edit-delete">
   <a href="{% url 'gallery_edit' profile.id %}">Edit Profile</a>
+</div>
+<div>
   <a href="{% url 'gallery_delete' profile.id %}">Delete Profile</a>
 </div> 
 
 {% else  %}
 {% comment %} <h1>this is artist</h1> {% endcomment %}
 
-<div class="card-action image-upload">
+<figure class="card-action image-upload">
     {% for photo in profile.artist_photo_set.all %}
-        
         <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
-        
       {% empty %}
         <div class="card-panel teal-text center-align">No Photos Uploaded</div>
       {% endfor %}
@@ -115,10 +91,10 @@
       <br><br>
       <input type="submit" class="btn" value="Upload Photo">
   </form>
-</div> 
+</figure> 
 
 
-<div class="card galleries-following" style="width: 18rem;">
+<section class="card galleries-following" style="width: 18rem;">
   <div class="card-body">
     <h4 class="card-title">Galleries Following</h4>
 
@@ -128,14 +104,9 @@
     <a class="btn btn-sm btn-outline-secondary unfollow" href="{% url 'remove_gallery' gallery.id %}">Unfollow</a>
     </p>
     {% endfor %}
-
   </div>
-</div>
+</section>
 
-{% comment %} <div class="card-action edit-delete">
-  <a href="{% url 'artist_edit' profile.id %}">Edit Profile</a>
-  <a href="{% url 'artist_delete' profile.id %}">Delete Profile</a>
-</div> {% endcomment %}
 
 <div class="card-action edit-delete">
   <a href="{% url 'artist_edit' profile.id %}">Edit Profile</a>
@@ -146,10 +117,5 @@
 
 {% endif %}
 
-
-
-
-
-
-
 {% endblock %}
+
