@@ -59,39 +59,11 @@
 
 </div>
 
-
  {% for photo in artist.artist_photo_set.all %}
         <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
       {% empty %}
         <div class="card-panel teal-text center-align">No Photos Uploaded</div>
       {% endfor %}
-
-{% comment %} href{% url 'artist_photo' profile.id %} {% endcomment %}
-{% comment %} <form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    
-</form> {% endcomment %}
-{% comment %} {% for photo in profile.artist_photo_set.all %}
-      <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
-      artist_id
-    {% endfor %} {% endcomment %}
-
-{% comment %} <div class="card-action">
-<form action="{% url 'artist_photo' profile.id 'artist_show' %}" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    <input type="file" name="photo-file">
-    
-</form>
-  {% for photo in profile.artist_photo_set.all %}
-      <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
-    
-    {% endfor %}     {% endcomment %}
-
-{% comment %} <div class="card-action">
-  <a href="{% url 'artist_edit' artist.id %}">Edit Artist</a>
-  <a href="{% url 'artist_delete' artist.id %}">Delete Artist</a>
-</div> {% endcomment %}
-
 
 
 {% endblock %}
