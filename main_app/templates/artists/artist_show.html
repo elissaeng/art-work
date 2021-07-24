@@ -2,26 +2,95 @@
 
 {% block content %}
 
-<h1>Artist Show Page</h1>
+{% comment %} <h1>Artist Show Page</h1> {% endcomment %}
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">Name: {{ artist.name }}</span>
-    <p>Location: {{ artist.location }}</p>
-    <p>Bio: {{ artist.bio }}</p>
-    <p>Website: {{ artist.website }}</p>
-    <p>Highlights: {{ artist.highlights }}</p>
-    <p>Fun Fact About Me: {{ artist.fun_fact }}</p>
-    <p>Image: {{ artist.img_urls }}</p>
+{% comment %} <h1 class="text-end">{{ artist.name }}</h1> {% endcomment %}
+
+<div class="row">
+  <div class="col-6  p-5">
+    <h1>{{ artist.name }}</h1>
+    <h3>{{ artist.location }}</h3>
+    <h4>{{ artist.blurb }}</h4>
+    <h5>{{ artist.website }}</h5>
+    {% if is_gallery %}
+    <div class="card-action">
+      <form action="{% url 'assoc_artist' artist.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn"><h6>Follow</h6></button>
+      </form>
+    </div>      
+    {% endif %}
+    <h6>Message</h6>
   </div>
+    
+  <figure class="col-6  p-5">
+    <img class="profile-img card-panel" src="{{artist.profile_img}}">
+  </figure>
+  
+  {% comment %} <div class="container">
+    <div class="row">
+      <div class="col-12 bg-dark p-4">
+      </div>
+    </div>
+  </div>   {% endcomment %}
+
+  <div class="card border-fun-fact" style="width: 18rem;">
+    <div class="card-body fun-fact">
+      <h5 class="card-title">Fun Fact</h5>
+      <p class="card-text">{{ artist.fun_fact }}</p>
+    </div>
+  </div>
+
+  {% comment %} <div class="row">
+    <div class="col bg-info p-5">
+      <h1>IMAGE</h1>
+    </div> {% endcomment %}
+    <div class="col bio p-5">
+      <h1>BIO</h1>
+        {{ artist.bio }}
+    </div>
+
+  <div class="card border-highlights" style="width: 18rem;">
+    <div class="card-body highlights">
+      <h5 class="card-title">Highlights</h5>
+      <p class="card-text">{{ artist.highlights }}</p>
+    </div>
+  </div>
+
 </div>
+
+
+ {% for photo in artist.artist_photo_set.all %}
+        <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
+      {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
+
+{% comment %} href{% url 'artist_photo' profile.id %} {% endcomment %}
+{% comment %} <form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+    {% csrf_token %}
+    
+</form> {% endcomment %}
+{% comment %} {% for photo in profile.artist_photo_set.all %}
+      <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
+      artist_id
+    {% endfor %} {% endcomment %}
+
+{% comment %} <div class="card-action">
+<form action="{% url 'artist_photo' profile.id 'artist_show' %}" enctype="multipart/form-data" method="POST" class="card-panel">
+    {% csrf_token %}
+    <input type="file" name="photo-file">
+    
+</form>
+  {% for photo in profile.artist_photo_set.all %}
+      <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
+    
+    {% endfor %}     {% endcomment %}
 
 {% comment %} <div class="card-action">
   <a href="{% url 'artist_edit' artist.id %}">Edit Artist</a>
   <a href="{% url 'artist_delete' artist.id %}">Delete Artist</a>
 </div> {% endcomment %}
-
-
 
 
 

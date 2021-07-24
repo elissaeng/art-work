@@ -1,13 +1,158 @@
+a:-webkit-any-link {
+  text-decoration: none;
+  color: black;
+  
+}
+
 html, body {
   height: 100%;
 }
+
 body {
   display: flex;
   flex-direction: column;
 }
+
 .container {
   flex: 1 0 auto;
 }
+
 .footer {
   flex-shrink: 0;
+  height: 100px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
+
+.responsive-img {
+  width: 300px;
+  height: auto;
+  margin-top: 80px;
+}
+
+.profile-img {
+  height: 400px;
+  width: 400px;
+  object-fit: cover;
+}
+
+.artist-index-card {
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.gallery-index-card {
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+
+/* .image-upload {
+  margin-top: 30px;
+  background: aquamarine;
+} */
+
+.galleries-following {
+  text-decoration: none !important;
+  color: black;
+  justify-content: space-between;
+  list-style-type: none;
+  /* border-style: solid; */
+}
+
+.unfollow {
+  margin-left: 10px;
+  /* background: #e6e6e6; */
+  font-size: x-small;
+}
+
+.fun-fact {
+  /* background-color: #cce6ff; */
+
+  /* default color */
+  /* background-color: #0DCAF0; */
+
+  /* background-color: #9eebfa; */
+  background-color: #55dbf6;
+}
+
+.border-fun-fact {
+  border: none;
+}
+
+.highlights {
+  /* background-color: #E8F4FF; */
+  background-color: #cce6ff;
+}
+
+.border-highlights {
+  border: none;
+}
+
+.bio {
+  /* background-color: #9ECEE6; */
+  /* background-color: #14CCF4; */
+  /* background-color: #86e4f9; */
+
+  /* lighter version of bio default */
+  /* background-color: #cde1fe; */
+  /* background-color: #b4d1fd; */
+  /* background-color: #82b3fc; */
+  /* background-color: #3585fd; */
+  /* background-color: #4e94fd; */
+  /* background-color: #ffffcc; */
+  background-color: #ffff99;
+}
+
+
+.bar {
+  background-color: #20262d;
+}
+
+#edit-form {
+  display: inline-block;
+  /* background: aquamarine; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+#edit{
+  display: block;
+  background-color: #cce6ff;
+}
+
+
+.edit-delete {
+  margin-top: 20px;
+}
+
+
+#image-delete {
+  display: flex;
+
+}
+
+.image-show {
+  display: block;
+}
+
+
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked{
+  pointer-events: all;
+  opacity: 1;
+  position: relative;
+}
+
+
+
+
+
+/* .grandchild {
+  float: left;
+}
+.clearboth {
+  clear: both;
+} */

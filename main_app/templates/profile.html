@@ -2,77 +2,57 @@
 
 {% block content %}
 
-{% comment %} <h1>Profile</h1> {% endcomment %}
 
-{% comment %} <div class="card">
-  <div class="card-content">
-    <span class="card-title">Name: {{ profile.name }}</span>
-    <p>Location: {{ profile.location }}</p>
-    <p>Bio: {{ profile.bio }}</p>
-    <p>Website: {{ profile.website }}</p>
-    <p>Highlights: {{ profile.highlights }}</p>
-    <p>Fun Fact About Me: {{ profile.fun_fact }}</p>
-    <p>Image: {{ profile.img_urls }}</p>
-  </div>
-</div> {% endcomment %}
+{% comment %} <h1 class="text-end">{{ profile.name }}</h1> {% endcomment %}
 
-
-<h1 class="text-end">{{ profile.name }}</h1>
-{% comment %} <div class="card">
-  <div class="container">
-    
-    <p>Location: {{ profile.location }}</p>
-    <p>Bio: {{ profile.bio }}</p>
-    <p>Website: {{ profile.website }}</p>
-    <p>Highlights: {{ profile.highlights }}</p>
-    <p>Fun Fact About Me: {{ profile.fun_fact }}</p>
-    <p>Image: {{ profile.img_urls }}</p>
-  </div>
-</div> {% endcomment %}
 
 <div class="row">
-  <div class="col-6 bg-primary p-5">
-    <h5>{{ profile.location }}</h5>
-    <h5>Blurb</h5>
-    <h5>Website: {{ profile.website }}</h5>
-    <h6>Follow</h6>
-    <h6>Message</h6>
+  <div class="col-6  p-5">
+    <h1>{{ profile.name }}</h1>
+    <h2>{{ profile.location }}</h2>
+    <h4>{{ profile.blurb }}</h4>
+    <h5>{{ profile.website }}</h5>
   </div>
 
-  <div class="col-6 bg-info p-5">
-    <h2>Profile Image</h2>
-  </div>
+  <div class="col-6  p-5">
+    {% comment %} <h2>Profile Image</h2> {% endcomment %}
+    
+  
+      <img class="profile-img card-panel" src="{{profile.profile_img}}">
+    
+      
 </div>
 
 
-<div class="container">
+{% comment %} <div class="container">
   <div class="row">
     <div class="col-12 bg-dark p-4">
     </div>
   </div>
-</div>
+</div> {% endcomment %}
 
 
-<div class="row">
-  <div class="col bg-info p-5">
-    <h1>IMAGE</h1>
-  </div>
-  <div class="col bg-primary p-5">
-    <h1>BIO</h1>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia amet commodi id labore quia. Blanditiis odit, dolores inventore voluptatibus fugiat dignissimos corrupti voluptate, rerum recusandae accusantium reiciendis excepturi repellendus, ipsam magni quidem asperiores iure facere earum. Amet dignissimos quas dolorum saepe cupiditate aut doloribus, eaque unde tempora ut nam laudantium.</p>
-  </div>
-</div>
-
-
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
+<div class="card border-fun-fact" style="width: 18rem;">
+  <div class="card-body fun-fact">
     <h5 class="card-title">Fun Fact</h5>
     <p class="card-text">{{ profile.fun_fact }}</p>
   </div>
 </div>
 
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
+
+{% comment %} <div class="row">
+  <div class="col bg-info p-5">
+    <h1>IMAGE</h1>
+  </div> {% endcomment %}
+  <div class="col bio p-5">
+    <h1>BIO</h1>
+     {{ profile.bio }}
+</div>
+
+
+
+<div class="card border-highlights" style="width: 18rem;">
+  <div class="card-body highlights">
     <h5 class="card-title">Highlights</h5>
     <p class="card-text">{{ profile.highlights }}</p>
   </div>
@@ -82,32 +62,88 @@
 
 
 
-
 {% if is_gallery %}
 <h1>this is gallery</h1>
-<div class="card-action">
-  <a href="{% url 'gallery_edit' profile.id %}">Edit Profile</a>
-  <a href="{% url 'gallery_delete' profile.id %}">Delete Profile</a>
-</div> 
-{% else  %}
-<h1>this is artist</h1>
-
 
 <div class="card-action">
-<form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+  {% for photo in profile.gallery_photo_set.all %}
+      <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
+<form action="{% url 'gallery_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
     {% csrf_token %}
     <input type="file" name="photo-file">
     <br><br>
     <input type="submit" class="btn" value="Upload Photo">
 </form>
-  {% for photo in profile.artist_photo_set.all %}
-      <img class="responsive-img card-panel" src="{{photo.url}}">
-    {% empty %}
-      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+
+
+
+<div class="card artists-following" style="width: 18rem;">
+  <div class="card-body">
+    <h4 class="card-title">Artists Following</h4>
+
+    {% for artist in following %}
+    <p class="card-text artists-following"><a href="{% url 'artist_show' artist.id %}">{{ artist.name }}</a>
+
+    <a class="btn btn-sm btn-outline-secondary unfollow" href="{% url 'remove_artist' artist.id %}">Unfollow</a>
+    </p>
     {% endfor %}
+  </div>
+</div>  
+
+<div class="card-action edit-delete">
+  <a href="{% url 'gallery_edit' profile.id %}">Edit Profile</a>
+  <a href="{% url 'gallery_delete' profile.id %}">Delete Profile</a>
+</div> 
+
+{% else  %}
+{% comment %} <h1>this is artist</h1> {% endcomment %}
+
+<div class="card-action image-upload">
+    {% for photo in profile.artist_photo_set.all %}
+        
+        <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
+        
+      {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
+  <form action="{% url 'artist_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file">
+      <br><br>
+      <input type="submit" class="btn" value="Upload Photo">
+  </form>
+</div> 
+
+
+<div class="card galleries-following" style="width: 18rem;">
+  <div class="card-body">
+    <h4 class="card-title">Galleries Following</h4>
+
+    {% for gallery in following %}
+    <p class="card-text galleries-following"><a href="{% url 'gallery_show' gallery.id %}">{{ gallery.name }}</a>
+
+    <a class="btn btn-sm btn-outline-secondary unfollow" href="{% url 'remove_gallery' gallery.id %}">Unfollow</a>
+    </p>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% comment %} <div class="card-action edit-delete">
   <a href="{% url 'artist_edit' profile.id %}">Edit Profile</a>
   <a href="{% url 'artist_delete' profile.id %}">Delete Profile</a>
-</div> 
+</div> {% endcomment %}
+
+<div class="card-action edit-delete">
+  <a href="{% url 'artist_edit' profile.id %}">Edit Profile</a>
+</div>  
+<div class="card-action edit-delete">  
+  <a href="{% url 'artist_delete' profile.id %}">Delete Profile</a>
+</div>
+
 {% endif %}
 
 

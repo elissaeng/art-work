@@ -1,6 +1,6 @@
 from django.core.files.base import ContentFile
 from django.shortcuts import render, redirect
-from .models import Artist, Gallery, Artist_photo
+from .models import Artist, Gallery, Artist_photo, Gallery_photo
 from .forms import ArtistForm, GalleryForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -13,8 +13,12 @@ BUCKET = 'art-work'
 
 # HOME
 def home(request):
-  return render(request, 'home.html')
+  artists = Artist.objects.all()
+  context = { 'artists': artists }
+  return render(request, 'home.html', context)
+ 
 
+# ///////////// ARTISTS //////////////////
 
 # ARTIST INDEX
 def artists_index(request):
@@ -24,10 +28,15 @@ def artists_index(request):
 
 
 # ARTIST SHOW
+@login_required
 def artist_show(request, artist_id):
+  artist_profile = Artist.objects.filter(user=request.user)
+  is_gallery = True
+  if artist_profile.count() > 0: 
+    is_gallery = False
   found_artist = Artist.objects.get(id=artist_id)
   artist_form = ArtistForm()
-  context= { 'artist': found_artist, 'ArtistForm': artist_form }
+  context= { 'artist': found_artist, 'ArtistForm': artist_form, 'is_gallery': is_gallery }
 
   return render(request, 'artists/artist_show.html', context)
 
@@ -76,6 +85,7 @@ def artist_delete(request, artist_id):
   return redirect('artists_index')
 
 
+# ARTIST PHOTO
 @login_required
 def artist_photo(request, artist_id):
   photo_file = request.FILES.get('photo-file', None)
@@ -95,6 +105,29 @@ def artist_photo(request, artist_id):
             print('An error occurred uploading file to S3')
   return redirect('profile')
 
+
+# GALLERY PHOTO
+@login_required
+def gallery_photo(request, gallery_id):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build the full url string
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            # we can assign to cat_id or cat (if you have a cat object)
+            photo = Gallery_photo(url=url,gallery_id=gallery_id)
+            photo.save()
+        except:
+            print('An error occurred uploading file to S3')
+  return redirect('profile')
+
+
+
 # ///////// GALLERIES  ///////////  
 
 # GALLERY INDEX
@@ -106,9 +139,13 @@ def gallery_index(request):
 
 # GALLERY SHOW
 def gallery_show(request, gallery_id):
+  artist_profile = Artist.objects.filter(user=request.user)
+  is_gallery = True
+  if artist_profile.count() > 0: 
+    is_gallery = False
   found_gallery = Gallery.objects.get(id=gallery_id)
   gallery_form = GalleryForm()
-  context= { 'gallery': found_gallery, 'GalleryForm': gallery_form }
+  context= { 'gallery': found_gallery, 'GalleryForm': gallery_form, 'is_gallery': is_gallery }
 
   return render(request, 'galleries/gallery_show.html', context)        
   
@@ -137,6 +174,7 @@ def gallery_delete(request, gallery_id):
   gallery.delete()
   return redirect('gallery_index')
 
+
 # SIGN UP
 def signup(request):
   error_message = ''
@@ -147,11 +185,12 @@ def signup(request):
     if form.is_valid():
       value=request.POST.get('isGallery')
       user = form.save()
-      if value == 'yes':
+      print (value)
+      if value:
         gallery = Gallery() 
         gallery.user = user
         gallery.save()
-
+        
       else: 
         artist = Artist()
         artist.user = user
@@ -171,15 +210,118 @@ def signup(request):
 def profile(request):
   artist_profile = Artist.objects.filter(user=request.user)
   gallery_profile = Gallery.objects.filter(user=request.user)
+  # print (artist_profile[0].galleries)
   if (artist_profile.count()>0):
-    return render(request, 'profile.html', {'profile': artist_profile[0], 'is_gallery': False})
+    following = artist_profile[0].galleries.all()
+    return render(request, 'profile.html', {'profile': artist_profile[0], 'following': following, 'is_gallery': False})
   else: 
-    return render(request, 'profile.html', {'profile': gallery_profile[0], 'is_gallery': True})
+    following = gallery_profile[0].artists.all()
+    return render(request, 'profile.html', {'profile': gallery_profile[0], 'following': following, 'is_gallery': True})
 
 
-def artist_show(request, artist_id):
-  found_artist = Artist.objects.get(id=artist_id)
-  artist_form = ArtistForm()
-  context= { 'artist': found_artist, 'ArtistForm': artist_form }
+# FOLLOW
+def assoc_artist(request, artist_id):
+  gallery_profile = Gallery.objects.get(user=request.user)
+  gallery_profile.artists.add(artist_id)
+  gallery_profile.save()
+  return redirect('profile')
 
-  return render(request, 'artists/artist_show.html', context)
+def assoc_gallery(request, gallery_id):
+  artist_profile = Artist.objects.get(user=request.user)
+  artist_profile.galleries.add(gallery_id)
+  artist_profile.save()
+  return redirect('profile')
+
+
+# REMOVE
+def remove_artist(request, artist_id):
+  gallery_profile = Gallery.objects.get(user=request.user)
+  gallery_profile.artists.remove(artist_id)
+  gallery_profile.save()
+  return redirect('profile')
+
+def remove_gallery(request, gallery_id):
+  artist_profile = Artist.objects.get(user=request.user)
+  artist_profile.galleries.remove(gallery_id)
+  artist_profile.save()
+  return redirect('profile')  
+
+
+# IMAGE SHOW
+@login_required
+def image_show(request, photo_id):
+  match = False
+  array = Artist_photo.objects.filter(id=photo_id)
+  found_image = None
+  if array.count() > 0:
+    found_image = Artist_photo.objects.get(id=photo_id)
+  else:
+    found_image = Gallery_photo.objects.get(id=photo_id)
+  artist_profile = Artist.objects.filter(user=request.user)
+  gallery_profile = Gallery.objects.filter(user=request.user)
+  if (artist_profile.count()>0):
+    photos = (artist_profile[0].artist_photo_set.all())
+    for photo in photos: 
+      if photo.id == photo_id:
+        match = True
+      
+  else:
+    photos = (gallery_profile[0].gallery_photo_set.all())
+    for photo in photos: 
+      if photo.id == photo_id:
+        match = True
+  context= { 'found_image': found_image, 'match': match }
+
+  return render(request, 'image_show.html', context)
+  
+# IMAGE DELETE
+@login_required
+def image_delete(request, photo_id):
+  array = Artist_photo.objects.filter(id=photo_id)  
+  found_image = None
+  if array.count() > 0:
+    found_image = Artist_photo.objects.get(id=photo_id)
+  else:
+    found_image = Gallery_photo.objects.get(id=photo_id)  
+  found_image.delete()
+
+  return redirect('profile')
+
+
+  
+
+  # print (artist_profile[0].galleries)
+  
+  #   following = artist_profile[0].galleries.all()
+  #   return render(request, 'profile.html', {'profile': artist_profile[0], 'following': following, 'is_gallery': False})
+  # else: 
+  #   following = gallery_profile[0].artists.all()
+  #   return render(request, 'profile.html', {'profile': gallery_profile[0], 'following': following, 'is_gallery': True})
+
+
+
+# @login_required
+# def image_show(request, photo_id, artist_id):
+#   found_image = Artist_photo.objects.get(id=photo_id)
+#   found_artist = Artist_name.objects.get(id=artist_id)
+
+#   context= { 'found_image': found_image 'found_artist': found_artist}
+
+#   return render(request, 'image_show.html', context)
+
+
+# ADD A GALLERY TO AN ARTIST
+# def assoc_gallery(request, artist_id, gallery_id):
+#   found_artist = Artist.objects.get(id=artist_id)
+#   found_artist.galleries.add(gallery_id)
+#   return redirect('artist_profile', artist_id = artist_id)
+
+# def assoc_gallery(request, artist_id, gallery_id):
+#   found_artist = Artist.objects.get(id=artist_id)
+#   found_artist.gallery.add(gallery_id)
+#   return redirect('artist_profile', artist_id = artist_id)
+
+  
+# def assoc_gallery(request, gallery_id):
+#   Artist.objects.get(id=artist_id).galleries.add(gallery_id)
+#   return redirect('artist_profile', artist_id=artist_id)

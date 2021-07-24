@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+{% comment %} <h1>Image Show</h1> {% endcomment %}
+
+{% comment %} <h1>{{ profile.name }}</h1> {% endcomment %}
+
+<img class="image-show" src="{{ found_image.url }}" alt="">
+
+
+
+ {% if match %}
+ <a href="{% url 'image_delete' found_image.id %}"><button id="image-delete">delete</button></a>
+  
+  {% endif %}
+
+{% endblock %}

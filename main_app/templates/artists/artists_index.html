@@ -4,24 +4,29 @@
 
 <h1>Artist Index</h1>
 
+<div class="row">
 {% for artist in artists %}
 
-  <a href="{% url 'artist_show' artist.id %}">
+<div class="col">
+<div class="card artist-index-card" style="width: 24rem;">
+  <img src="{{ artist.profile_img }}" class="card-img-top profile-img" alt="artist image">
+  <div class="card-body">
+    <h2 class="card-title">{{ artist.name }}</h2>
+    <h5 class="card-text">{{ artist.blurb }}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{ artist.location }}</li>
+    <li class="list-group-item">{{ artist.website }}</li>
+    {% comment %} <li class="list-group-item">A third item</li> {% endcomment %}
+  </ul>
+  <div class="card-body">
+    <a href="{% url 'artist_show' artist.id %}" class="card-link">Profile</a>
+    {% comment %} <a href="#" class="card-link">Another link</a> {% endcomment %}
+  </div>
+</div>
+</div>
   
 
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">{{ artist.name }}</span>
-        <p>Location: {{ artist.location }}</p>
-        <p>Bio: {{ artist.bio }}</p>
-        <p>Website: {{ artist.website }}</p>
-        <p>Highlights: {{ artist.highlights }}</p>
-        <p>Fun Fact About Me: {{ artist.fun_fact }}</p>
-        <p>Image: {{ artist.img_urls }}</p>
-      </div>
-    </div>
-
-  </a>
 
   {% comment %} <div class="card-action">
     <a href="{% url 'artist_edit' artist.id %}">Edit Artist</a>
@@ -29,5 +34,7 @@
   </div> {% endcomment %}
 
 {% endfor %}
+
+</div>
 
 {% endblock %}

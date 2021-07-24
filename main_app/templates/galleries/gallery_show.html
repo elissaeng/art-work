@@ -2,22 +2,111 @@
 
 {% block content %}
 
-<h1> Gallery Show Page</h1>
+{% comment %} <h1> Gallery Show Page</h1> {% endcomment %}
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">Name: {{ gallery.name }}</span>
-    <p>Location: {{ gallery.location }}</p>
-    <p>Bio: {{ gallery.bio }}</p>
-    <p>Website: {{ gallery.website }}</p>
-    <p>Highlights: {{ gallery.highlights }}</p>
-    <p>Fun Fact About Us: {{ gallery.fun_fact }}</p>
-    <p>Image: {{ gallery.img_urls }}</p>
+{% comment %} <h1 class="text-end">{{ gallery.name }}</h1> {% endcomment %}
+
+<div class="row">
+  <div class="col-6  p-5">
+    <h1>{{ gallery.name }}</h1>
+    <h2>{{ gallery.location }}</h2>
+    <h4>{{ gallery.blurb }}</h4>
+    <h5>{{ gallery.website }}</h5>
+    {% if not is_gallery %}
+    <div class="card-action">
+      <form action="{% url 'assoc_gallery' gallery.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn"><h6>Follow</h6></button>
+      </form>
+    </div>  
+    {% endif %}
+    <h6>Message</h6>
+  </div>
+      
+  <figure class="col-6  p-5">
+    <img class="profile-img card-panel" src="{{gallery.profile_img}}">
+  </figure>
+
+{% comment %} <div class="container">
+  <div class="row">
+    <div class="col-12 bar p-3">
+    </div>
+  </div>
+</div>   {% endcomment %}
+
+<div class="card border-fun-fact" style="width: 18rem;">
+  <div class="card-body fun-fact">
+    <h5 class="card-title">Fun Fact</h5>
+    <p class="card-text">{{ gallery.fun_fact }}</p>
   </div>
 </div>
 
+{% comment %} <div class="row"> {% endcomment %}
+  {% comment %} <div class="col bg-info p-5">
+    <h1>IMAGE</h1>
+  </div>  {% endcomment %}
+  <div class="col bio p-5">
+    <h1>BIO</h1>
+      {{ gallery.bio }}
+  </div>
+{% comment %} </div> {% endcomment %}
 
 
+<div class="card border-highlights" style="width: 18rem;">
+  <div class="card-body highlights">
+    <h5 class="card-title">Highlights</h5>
+    <p class="card-text">{{ gallery.highlights }}</p>
+  </div>
+</div>
+
+</div>
+
+{% for photo in gallery.gallery_photo_set.all %}
+        <a href="{% url 'image_show' photo.id %}"><img class="responsive-img card-panel" src="{{photo.url}}"></a>
+      {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
+
+
+
+{% comment %} ADD GALLERY TO ARTIST {% endcomment %}
+{% comment %} {% if not is_gallery %}
+ <div class="card-action">
+  <form action="{% url 'assoc_gallery' gallery.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn">Follow Gallery</button>
+  </form>
+</div>      
+{% endif %} {% endcomment %}
+
+  {% comment %} {% if galleries.count > 0 %}
+
+    {% for gallery in galleries %}
+      <div class="card">
+    
+        <div class="card-content">
+          <span class="card-title">{{ gallery.name }}</span>
+        </div>
+
+      <div class="card-action">
+        <form action="{% url 'assoc_gallery' gallery.id artist.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add Gallery</button>
+        </form>
+      </div>
+
+      </div>
+    {% endfor %}å
+  {% endif %} {% endcomment %}
+
+
+
+{% comment %} <div class="card-action">
+  <form action="{% url 'assoc_gallery' artist.id gallery.id %}" method="post">
+      {% csrf_token %}
+    <button type="submit" class="btn">Add</button>
+  </form>
+</div> {% endcomment %}
 
 
 {% endblock %}

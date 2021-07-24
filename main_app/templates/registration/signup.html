@@ -10,7 +10,7 @@
   {% csrf_token %}
   {{ form.as_p }}
   <label for="gallery">Is Gallery?</label>
-  <input type="text" name="isGallery" id="gallery">
+  <input type="checkbox" name="isGallery" id="gallery">
 
   <input class="btn" type="submit" value="login">
   <input type="hidden" name="next" value="{{ next }}">
